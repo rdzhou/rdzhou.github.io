@@ -88,7 +88,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/09/19/Sublime-Text-Useful-Code/" data-id="cjf0p1e630020dvjj9829a4pq" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/09/19/Sublime-Text-Useful-Code/" data-id="cjf1tw6tc002m9k6chnippuh8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li></ul>
@@ -122,12 +122,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># empty a file</span></span><br><span class="line">: &gt; file.txt</span><br><span class="line">truncate -s0 file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># build file index for current directory</span></span><br><span class="line">find $(<span class="built_in">pwd</span>) -<span class="built_in">type</span> f &gt; filelist.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># copy a part of a file</span></span><br><span class="line">dd count=&lt;copy_N_ibs_sized_blocks&gt; skip==&lt;copy_N_ibs_sized_blocks&gt; <span class="keyword">if</span>=&lt;input_file&gt; of=&lt;output_file&gt;</span><br><span class="line"><span class="comment"># add iflag=count_bytes,skip_bytes to copy and skip in bytes instead of blocks</span></span><br><span class="line">dd iflag=count_bytes,skip_bytes count=&lt;copy_bytes&gt; skip=&lt;skip_bytes&gt; <span class="keyword">if</span>=&lt;input_file&gt; of=&lt;output_file&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># search for keyword in some specific types of files</span></span><br><span class="line">find . -<span class="built_in">type</span> f -name <span class="string">"*.java"</span> -print0 |xargs -0 grep -li <span class="string">"keyword"</span></span><br></pre></td></tr></table></figure>
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Print absolute path of the script.</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">abs_path</span></span>() &#123;</span><br><span class="line">  python -c <span class="string">"import os.path; print os.path.realpath('<span class="variable">$0</span>')"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># get absolute path of the current script</span></span><br><span class="line">ABS_PATH=`abs_path`</span><br><span class="line"></span><br><span class="line"><span class="comment"># get path of directory</span></span><br><span class="line">$(dirname <span class="variable">$ABS_PATH</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># get filename</span></span><br><span class="line">$(basename <span class="variable">$ABS_PATH</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># empty a file</span></span><br><span class="line">: &gt; file.txt</span><br><span class="line">truncate -s0 file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># build file index for current directory</span></span><br><span class="line">find $(<span class="built_in">pwd</span>) -<span class="built_in">type</span> f &gt; filelist.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># copy a part of a file</span></span><br><span class="line">dd count=&lt;copy_N_ibs_sized_blocks&gt; skip==&lt;copy_N_ibs_sized_blocks&gt; <span class="keyword">if</span>=&lt;input_file&gt; of=&lt;output_file&gt;</span><br><span class="line"><span class="comment"># add iflag=count_bytes,skip_bytes to copy and skip in bytes instead of blocks</span></span><br><span class="line">dd iflag=count_bytes,skip_bytes count=&lt;copy_bytes&gt; skip=&lt;skip_bytes&gt; <span class="keyword">if</span>=&lt;input_file&gt; of=&lt;output_file&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># search for keyword in some specific types of files</span></span><br><span class="line">find . -<span class="built_in">type</span> f -name <span class="string">"*.java"</span> -print0 |xargs -0 grep -li <span class="string">"keyword"</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/08/02/Shell-Notes/" data-id="cjf0p1e5z001tdvjjclusag2y" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/08/02/Shell-Notes/" data-id="cjf1tw6t200239k6cudkgyhor" class="article-share-link">Share</a>
       
       
     </footer>
@@ -214,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/08/02/Outlook-Search-Criteria/" data-id="cjf0p1e5y001rdvjj06q9rhfl" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/08/02/Outlook-Search-Criteria/" data-id="cjf1tw6sz00209k6cykvta5jt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Outlook/">Outlook</a></li></ul>
@@ -258,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/07/31/How-to-Remove-u200b/" data-id="cjf0p1e5n0017dvjjdhquulz2" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/07/31/How-to-Remove-u200b/" data-id="cjf1tw6sb00129k6cf3rrftno" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li></ul>
@@ -297,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cjf0p1e57000hdvjja6whj27o" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cjf1tw6ry000f9k6clfikj75r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -337,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" data-id="cjf0p1e5k0010dvjjbexy409x" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" data-id="cjf1tw6t6002c9k6ckb2dr3qe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
@@ -378,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/31/Common-OpenSSL-Commands/" data-id="cjf0p1e54000edvjjvcrsz7ia" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/05/31/Common-OpenSSL-Commands/" data-id="cjf1tw6s0000i9k6cxfh1pxqz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li></ul>
@@ -449,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cjf0p1e51000advjj2xvfylro" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cjf1tw6ru00089k6c057l9xgv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -492,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" data-id="cjf0p1e4z0008dvjjv2uxn7fd" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" data-id="cjf1tw6rw000a9k6c6gaiv6zr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
@@ -534,7 +534,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/27/ohmyzsh-Configuration/" data-id="cjf0p1e67002advjjr1ylmse3" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/27/ohmyzsh-Configuration/" data-id="cjf1tw6ta002j9k6csjgdwm4n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
