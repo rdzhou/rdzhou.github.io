@@ -3,19 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Generate Public/Private Key Pairs | XBlog</title>
+  <title>XBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Become a Certificate Authority (CA)12345$ cp /usr/lib/ssl/openssl.cnf ./$ mkdir -p ./demoCA/certs ./demoCA/crl ./demoCA/newcerts$ touch ./demoCA/index.txt$ echo &quot;1000&quot; &amp;gt; ./demoCA/serial$ openssl re">
-<meta name="keywords" content="Cryptography">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Generate Public&#x2F;Private Key Pairs">
-<meta property="og:url" content="http://rdzhou.github.io/2017/04/06/Generate-Public-Private-Key-Pairs/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="XBlog">
+<meta property="og:url" content="http://rdzhou.github.io/page/5/index.html">
 <meta property="og:site_name" content="XBlog">
-<meta property="og:description" content="Become a Certificate Authority (CA)12345$ cp /usr/lib/ssl/openssl.cnf ./$ mkdir -p ./demoCA/certs ./demoCA/crl ./demoCA/newcerts$ touch ./demoCA/index.txt$ echo &quot;1000&quot; &amp;gt; ./demoCA/serial$ openssl re">
-<meta property="og:updated_time" content="2018-03-20T06:54:41.895Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Generate Public&#x2F;Private Key Pairs">
-<meta name="twitter:description" content="Become a Certificate Authority (CA)12345$ cp /usr/lib/ssl/openssl.cnf ./$ mkdir -p ./demoCA/certs ./demoCA/crl ./demoCA/newcerts$ touch ./demoCA/index.txt$ echo &quot;1000&quot; &amp;gt; ./demoCA/serial$ openssl re">
+<meta name="twitter:title" content="XBlog">
   
     <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
   
@@ -64,10 +59,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Generate-Public-Private-Key-Pairs" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-My-First-Post-with-hexo" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/04/06/Generate-Public-Private-Key-Pairs/" class="article-date">
-  <time datetime="2017-04-07T01:03:21.000Z" itemprop="datePublished">2017-04-06</time>
+    <a href="/2016/09/25/My-First-Post-with-hexo/" class="article-date">
+  <time datetime="2016-09-26T03:03:25.000Z" itemprop="datePublished">2016-09-25</time>
 </a>
     
   </div>
@@ -77,8 +74,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Generate Public/Private Key Pairs
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/25/My-First-Post-with-hexo/">My First Post with hexo</a>
     </h1>
   
 
@@ -86,46 +83,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Become-a-Certificate-Authority-CA"><a href="#Become-a-Certificate-Authority-CA" class="headerlink" title="Become a Certificate Authority (CA)"></a>Become a Certificate Authority (CA)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cp /usr/lib/ssl/openssl.cnf ./</span><br><span class="line">$ mkdir -p ./demoCA/certs ./demoCA/crl ./demoCA/newcerts</span><br><span class="line">$ touch ./demoCA/index.txt</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"1000"</span> &gt; ./demoCA/serial</span><br><span class="line">$ openssl req -new -x509 -keyout ca.key -out ca.crt -config openssl.cnf</span><br></pre></td></tr></table></figure>
-<p>Open openssl.cnf and change “policy = policy_match” to “policy = policy_anything”</p>
-<h2 id="Create-a-Certificate"><a href="#Create-a-Certificate" class="headerlink" title="Create a Certificate"></a>Create a Certificate</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># Generate public/private key pair</span></span><br><span class="line">$ openssl genrsa -aes128 -out server.key 1024</span><br><span class="line">$ <span class="comment"># show content</span></span><br><span class="line">$ openssl rsa -<span class="keyword">in</span> server.key -text</span><br><span class="line">$ <span class="comment"># Generate a Certificate Signing Request (CSR)</span></span><br><span class="line">$ openssl req -new -key server.key -out server.csr -config openssl.cnf</span><br><span class="line">$ <span class="comment"># Generating Certificates</span></span><br><span class="line">$ openssl ca -<span class="keyword">in</span> server.csr -out server.crt -cert ca.crt -keyfile ca.key -config openssl.cnf</span><br></pre></td></tr></table></figure>
-<h2 id="Create-Digital-Signature"><a href="#Create-Digital-Signature" class="headerlink" title="Create Digital Signature"></a>Create Digital Signature</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># prepare the file to sign</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"Hello, world!"</span> &gt; in.txt</span><br><span class="line">$ <span class="comment"># extract public key</span></span><br><span class="line">$ openssl rsa -<span class="keyword">in</span> server.key -pubout &gt; server.pub</span><br><span class="line">$ <span class="comment"># generate signature with private key</span></span><br><span class="line">$ openssl dgst -sha256 -sign server.key -out in.txt.sha256 in.txt</span><br><span class="line">$ <span class="comment"># verify the signature with public key</span></span><br><span class="line">$ openssl dgst -sha256 -verify server.pub -signature in.txt.sha256 in.txt</span><br></pre></td></tr></table></figure>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Crypto/Crypto_PublicKey/Crypto_PublicKey.pdf" target="_blank" rel="noopener">Crypto Lab – Public-Key Cryptography and PKI</a></p>
+        <p>This my first post using <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! </p>
+<h2 id="First-title"><a href="#First-title" class="headerlink" title="First title"></a>First title</h2><h3 id="a-first-subtitile"><a href="#a-first-subtitile" class="headerlink" title="a first subtitile"></a>a first subtitile</h3><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="Second-title"><a href="#Second-title" class="headerlink" title="Second title"></a>Second title</h2><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Generate-Public-Private-Key-Pairs/" data-id="cjfagmn4e000uxa6cmmk68b8q" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2016/09/25/My-First-Post-with-hexo/" data-id="cjfagmn4t001oxa6cnjxl95le" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cryptography/">Cryptography</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
 
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2017/04/06/Add-An-Android-Service/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Add An Android Service
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/04/06/Using-Android-KeyChain/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Using Android KeyChain</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
 </section>
         
           <aside id="sidebar">
