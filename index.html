@@ -61,6 +61,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Increase-Open-File-Limit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/30/Increase-Open-File-Limit/" class="article-date">
+  <time datetime="2018-03-30T20:41:41.000Z" itemprop="datePublished">2018-03-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/30/Increase-Open-File-Limit/">Increase Open File Limit</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add the following line to /etc/security/limits.conf</span></span><br><span class="line"><span class="comment"># &#123;user&#125;/@&#123;group&#125; soft/hard/-(both) &#123;item&#125; &#123;vaule&#125;</span></span><br><span class="line">* - nofile 999999</span><br><span class="line"></span><br><span class="line"><span class="comment"># make sure the file (/etc/pam.d/login for console, /etc/pam.d/lightdm for lightdm and so on) contains the following line</span></span><br><span class="line">session required pam_limits.so</span><br><span class="line"></span><br><span class="line"><span class="comment"># login again</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line"><span class="built_in">ulimit</span> -Sn <span class="comment"># soft limit; can be raised up to the hard limit</span></span><br><span class="line"><span class="built_in">ulimit</span> -Hn <span class="comment"># hard limit</span></span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://ro-che.info/articles/2017-03-26-increase-open-files-limit" target="_blank" rel="noopener">Increase the open files limit on Linux</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2018/03/30/Increase-Open-File-Limit/" data-id="cjfef6bft001e3g6czobe5xmp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Clang-fsanitize-Notes" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/03/29/Clang-fsanitize-Notes/" class="article-date">
@@ -93,7 +133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/29/Clang-fsanitize-Notes/" data-id="cjfd70yc6000gyq6cxa9lvv82" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/03/29/Clang-fsanitize-Notes/" data-id="cjfef6bfd000h3g6cfl9ne7jd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clang/">clang</a></li></ul>
@@ -132,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/27/VMware-open-vm-tools/" data-id="cjfd70yd20025yq6c9qwst2uh" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/03/27/VMware-open-vm-tools/" data-id="cjfef6bga002d3g6ch9lfi8mr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VMware/">VMware</a></li></ul>
@@ -173,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/23/Set-Docker-Window-Size/" data-id="cjfd70ycv001syq6ch2mk37r9" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/03/23/Set-Docker-Window-Size/" data-id="cjfef6bg3001w3g6c9nv5o3ne" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
@@ -213,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/20/MacOS-Keyboard-Shortcuts/" data-id="cjfd70yco001gyq6cs09fiaaf" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/03/20/MacOS-Keyboard-Shortcuts/" data-id="cjfef6bfy001l3g6ca8jepbbz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li></ul>
@@ -265,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/20/Good-MacOS-Software/" data-id="cjfd70ycf000xyq6cxg0ufy1u" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/03/20/Good-MacOS-Software/" data-id="cjfef6bfn00103g6cakn1sp4u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li></ul>
@@ -305,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/02/How-to-Modify-jar-File/" data-id="cjfd70ycj0015yq6cszwqk961" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/03/02/How-to-Modify-jar-File/" data-id="cjfef6bfq00163g6cnji32ydb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -342,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/01/18/Android-Reverse-Engineering/" data-id="cjfd70yby0005yq6c1ymer3qq" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/01/18/Android-Reverse-Engineering/" data-id="cjfef6bf500053g6cktgs6ykb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -389,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/01/05/Java-Reflection/" data-id="cjfd70ycn001dyq6cj2ijbtgs" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/01/05/Java-Reflection/" data-id="cjfef6bfv001g3g6czhoeftrm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reflection/">Reflection</a></li></ul>
@@ -436,70 +476,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/12/27/Install-SGX/" data-id="cjfd70ycm001byq6c1wtxwxo3" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/12/27/Install-SGX/" data-id="cjfef6bfw001i3g6c12nrx15s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SGX/">SGX</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-How-to-Check-If-an-App-is-System-App-or-Not" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/" class="article-date">
-  <time datetime="2017-12-20T22:50:00.000Z" itemprop="datePublished">2017-12-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/">How to Check If an App is System App or Not</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>The definition of system app is not very clear. There are at least three different definitions:  </p>
-<ol>
-<li>Apps in system partition (<code>/system</code>)<ul>
-<li>These apps will get the flag <code>ApplicationInfo.FLAG_SYSTEM</code></li>
-<li>If an updated version is installed (probably not under <code>/system</code>), it will get <code>ApplicationInfo.FLAG_UPDATED_SYSTEM_APP</code></li>
-</ul>
-</li>
-<li>Apps signed with platform signature<ul>
-<li>These apps will be granted <code>signature</code> level permission</li>
-<li>The signature is checked in <a href="http://androidxref.com/7.1.2_r36/xref/frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java#10286" target="_blank" rel="noopener">PackageManagerService.java</a></li>
-</ul>
-</li>
-<li>Apps in <code>/system/priv-apps</code> and <code>/system/framework</code><ul>
-<li>These apps will get the flag <code>ApplicationInfo.PRIVATE_FLAG_PRIVILEGED</code></li>
-<li>The flag is set in <a href="http://androidxref.com/7.1.2_r36/xref/frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java#2319" target="_blank" rel="noopener">PackageManagerService.java</a></li>
-<li>These apps will be granted <code>signatureOrSystem</code> level permissions (corresponding to the <code>System</code> in <code>signatureOrSystem</code>)</li>
-<li>For Samsung, apps in <code>/system/carrier/priv-app</code> and <code>/odm/priv-app</code> will also get this flag</li>
-</ul>
-</li>
-</ol>
-<h2 id="Check"><a href="#Check" class="headerlink" title="Check"></a>Check</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.pm.ApplicationInfo;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageInfo;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager.NameNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"XKXXXX"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        PackageManager pm = getApplicationContext().getPackageManager();</span><br><span class="line">        List&lt;PackageInfo&gt; list = pm.getInstalledPackages(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(PackageInfo pi : list) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ApplicationInfo ai = pm.getApplicationInfo(pi.packageName, <span class="number">0</span>);</span><br><span class="line">                String strSignedBySys = isSignedBySystem(pm, pi.packageName)?<span class="string">"SYS_SIGN"</span>:<span class="string">"NONSYS_SIGN"</span>;</span><br><span class="line">                String strUnderSys = isAppInSystemPartition(pm, pi.packageName)?<span class="string">"UNDER_SYS"</span>:<span class="string">"NOT_UNDER_SYS"</span>;</span><br><span class="line">                String strPrivileged = isPrivilegedApp(ai)?<span class="string">"PRIV"</span>:<span class="string">"NON_PRIV"</span>;</span><br><span class="line">                Log.d(TAG, String.format(<span class="string">"&gt;&gt;&gt;&gt;&gt;&gt; %s &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; %s %s %s %s"</span>,</span><br><span class="line">                        pi.packageName,</span><br><span class="line">                        ai.publicSourceDir,</span><br><span class="line">                        strSignedBySys,</span><br><span class="line">                        strUnderSys,</span><br><span class="line">                        strPrivileged));</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"exception "</span>, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Check if an App is under /system or has been installed as an update to a built-in system application.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isAppInSystemPartition</span><span class="params">(PackageManager pm, String packageName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ApplicationInfo ai = pm.getApplicationInfo(packageName, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">return</span> ((ai.flags &amp; (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != <span class="number">0</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (NameNotFoundException e) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">"exception"</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Check if an App is signed by system or not.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSignedBySystem</span><span class="params">(PackageManager pm, String packageName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            PackageInfo pi_app = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);</span><br><span class="line">            PackageInfo pi_sys = pm.getPackageInfo(<span class="string">"android"</span>, PackageManager.GET_SIGNATURES);</span><br><span class="line">            <span class="keyword">return</span> (pi_app != <span class="keyword">null</span></span><br><span class="line">                    &amp;&amp; pi_app.signatures != <span class="keyword">null</span></span><br><span class="line">                    &amp;&amp; pi_sys.signatures[<span class="number">0</span>].equals(pi_app.signatures[<span class="number">0</span>]));</span><br><span class="line">        &#125;<span class="keyword">catch</span> (NameNotFoundException e) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">"exception"</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Check if an App has ApplicationInfo.PRIVATE_FLAG_PRIVILEGED (under /system/priv-app or /system/framework)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPrivilegedApp</span><span class="params">(ApplicationInfo ai)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Method method = ApplicationInfo.class.getDeclaredMethod(<span class="string">"isPrivilegedApp"</span>);</span><br><span class="line">            <span class="keyword">return</span> (Boolean)method.invoke(ai);</span><br><span class="line">        &#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">"exception"</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/content/pm/ApplicationInfo.java#476" target="_blank" rel="noopener">Definition of PRIVATE_FLAG_PRIVILEGED in ApplicationInfo.java</a><br><a href="https://pankajchunchun.wordpress.com/2014/07/08/how-to-check-if-application-is-system-app-or-not-by-signed-signature/" target="_blank" rel="noopener">How to check if application is system app or not (By signed signature)</a><br><a href="https://developer.android.com/guide/topics/manifest/permission-element.html" target="_blank" rel="noopener">Android permission element</a>  </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/" data-id="cjfd70ycg000zyq6ca6flujrs" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
 
     </footer>
   </div>
@@ -534,7 +514,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 14px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a>
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a>
     </div>
   </div>
 
@@ -556,6 +536,10 @@
       <ul>
         
           <li>
+            <a href="/2018/03/30/Increase-Open-File-Limit/">Increase Open File Limit</a>
+          </li>
+        
+          <li>
             <a href="/2018/03/29/Clang-fsanitize-Notes/">Clang fsanitize Notes</a>
           </li>
         
@@ -569,10 +553,6 @@
         
           <li>
             <a href="/2018/03/20/MacOS-Keyboard-Shortcuts/">MacOS Keyboard Shortcuts</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/20/Good-MacOS-Software/">Good MacOS Software</a>
           </li>
         
       </ul>

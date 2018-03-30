@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | XBlog</title>
+  <title>Increase Open File Limit | XBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="XBlog">
-<meta property="og:url" content="http://rdzhou.github.io/archives/page/5/index.html">
+  <meta name="description" content="123456789101112# Add the following line to /etc/security/limits.conf# &amp;#123;user&amp;#125;/@&amp;#123;group&amp;#125; soft/hard/-(both) &amp;#123;item&amp;#125; &amp;#123;vaule&amp;#125;* - nofile 999999# make sure the file (/et">
+<meta name="keywords" content="Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Increase Open File Limit">
+<meta property="og:url" content="http://rdzhou.github.io/2018/03/30/Increase-Open-File-Limit/index.html">
 <meta property="og:site_name" content="XBlog">
+<meta property="og:description" content="123456789101112# Add the following line to /etc/security/limits.conf# &amp;#123;user&amp;#125;/@&amp;#123;group&amp;#125; soft/hard/-(both) &amp;#123;item&amp;#125; &amp;#123;vaule&amp;#125;* - nofile 999999# make sure the file (/et">
+<meta property="og:updated_time" content="2018-03-30T20:46:28.849Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XBlog">
+<meta name="twitter:title" content="Increase Open File Limit">
+<meta name="twitter:description" content="123456789101112# Add the following line to /etc/security/limits.conf# &amp;#123;user&amp;#125;/@&amp;#123;group&amp;#125; soft/hard/-(both) &amp;#123;item&amp;#125; &amp;#123;vaule&amp;#125;* - nofile 999999# make sure the file (/et">
   
     <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
   
@@ -59,92 +64,56 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/21/Trusty-OS/" class="archive-article-date">
-  <time datetime="2017-03-21T07:19:41.000Z" itemprop="datePublished">Mar 21</time>
+        <section id="main"><article id="post-Increase-Open-File-Limit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/30/Increase-Open-File-Limit/" class="article-date">
+  <time datetime="2018-03-30T20:41:41.000Z" itemprop="datePublished">2018-03-30</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/21/Trusty-OS/">Trusty OS</a>
+    <h1 class="article-title" itemprop="name">
+      Increase Open File Limit
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add the following line to /etc/security/limits.conf</span></span><br><span class="line"><span class="comment"># &#123;user&#125;/@&#123;group&#125; soft/hard/-(both) &#123;item&#125; &#123;vaule&#125;</span></span><br><span class="line">* - nofile 999999</span><br><span class="line"></span><br><span class="line"><span class="comment"># make sure the file (/etc/pam.d/login for console, /etc/pam.d/lightdm for lightdm and so on) contains the following line</span></span><br><span class="line">session required pam_limits.so</span><br><span class="line"></span><br><span class="line"><span class="comment"># login again</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line"><span class="built_in">ulimit</span> -Sn <span class="comment"># soft limit; can be raised up to the hard limit</span></span><br><span class="line"><span class="built_in">ulimit</span> -Hn <span class="comment"># hard limit</span></span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://ro-che.info/articles/2017-03-26-increase-open-files-limit" target="_blank" rel="noopener">Increase the open files limit on Linux</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2018/03/30/Increase-Open-File-Limit/" data-id="cjfef6bft001e3g6czobe5xmp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/29/Clang-fsanitize-Notes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Clang fsanitize Notes</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/21/hello-world/" class="archive-article-date">
-  <time datetime="2017-03-21T07:00:00.000Z" itemprop="datePublished">Mar 21</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/21/hello-world/">Hello World</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/09/25/My-First-Post-with-hexo/" class="archive-article-date">
-  <time datetime="2016-09-26T03:03:25.000Z" itemprop="datePublished">Sep 25</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/25/My-First-Post-with-hexo/">My First Post with hexo</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/page/4/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span>
-  </nav>
 </section>
         
           <aside id="sidebar">
