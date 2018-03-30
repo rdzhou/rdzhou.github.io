@@ -61,6 +61,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-How-to-Sign-Android-App-with-System-Signature" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/20/How-to-Sign-Android-App-with-System-Signature/" class="article-date">
+  <time datetime="2017-12-20T22:30:59.000Z" itemprop="datePublished">2017-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/20/How-to-Sign-Android-App-with-System-Signature/">How to Sign Android App with Platform Signature</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar signapk.jar platform.x509.pem platform.pk8 unsigned.apk signed.apk</span><br></pre></td></tr></table></figure>
+<p>signapk.jar can be found under <code>&lt;root-of-android-source-tree&gt;/out/host/&lt;your-host&gt;/framework/</code><br>platform.x509.pem and platform.pk8 can be found under <code>&lt;root-of-android-source-tree&gt;/build/target/product/security/</code></p>
+<h2 id="Grant-an-App-the-System-Uid-Optional"><a href="#Grant-an-App-the-System-Uid-Optional" class="headerlink" title="Grant an App the System Uid (Optional)"></a>Grant an App the System Uid (Optional)</h2><p>In the AndroidManifest.xml of your application: in the <code>&lt;manifest&gt;</code> tag, add the attribute <code>android:sharedUserId=&quot;android.uid.system&quot;</code>.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://stackoverflow.com/questions/3635101/how-to-sign-android-app-with-system-signature" target="_blank" rel="noopener">How to sign Android app with system signature?</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/12/20/How-to-Sign-Android-App-with-System-Signature/" data-id="cjfd70ycl0019yq6cg36aww98" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-GCC-Optimization-Levels" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/12/20/GCC-Optimization-Levels/" class="article-date">
@@ -89,7 +131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/12/20/GCC-Optimization-Levels/" data-id="cjfbr48d3000skl6c2cagxh3a" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/12/20/GCC-Optimization-Levels/" data-id="cjfd70ycd000tyq6ca4djov67" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCC/">GCC</a></li></ul>
@@ -129,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/10/20/Disable-Shift-for-Triggering-Input-Method-for-fcitx/" data-id="cjfbr48d1000nkl6cdxrua34l" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/10/20/Disable-Shift-for-Triggering-Input-Method-for-fcitx/" data-id="cjfd70ycb000myq6cp30gotcj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fcitx/">fcitx</a></li></ul>
@@ -168,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/09/19/Sublime-Text-Useful-Code/" data-id="cjfbr48do0020kl6crv487s9i" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/09/19/Sublime-Text-Useful-Code/" data-id="cjfd70ycz001xyq6cbpbtz08w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li></ul>
@@ -207,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/08/02/Shell-Notes/" data-id="cjfbr48dn001ykl6cvb7xrovu" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/08/02/Shell-Notes/" data-id="cjfd70ycy001vyq6co8hgrwra" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
@@ -296,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/08/02/Outlook-Search-Criteria/" data-id="cjfbr48dk001qkl6cgbo0zdex" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/08/02/Outlook-Search-Criteria/" data-id="cjfd70yct001oyq6cdpi4mems" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Outlook/">Outlook</a></li></ul>
@@ -340,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/07/31/How-to-Remove-u200b/" data-id="cjfbr48db0017kl6c5y132odq" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/07/31/How-to-Remove-u200b/" data-id="cjfd70yck0018yq6c81pkjpw9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li></ul>
@@ -379,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cjfbr48cu000fkl6chntmezpt" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cjfd70yc3000eyq6cww6g904b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -419,7 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" data-id="cjfbr48d80010kl6cvzrhfwdu" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" data-id="cjfd70ych0010yq6csdgp9955" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
@@ -460,81 +502,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/31/Common-OpenSSL-Commands/" data-id="cjfbr48cz000kkl6ccydyrqr5" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/05/31/Common-OpenSSL-Commands/" data-id="cjfd70yc8000iyq6c3yqvd0cn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android-Root-Note" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/05/18/Android-Root-Note/" class="article-date">
-  <time datetime="2017-05-18T21:33:08.000Z" itemprop="datePublished">2017-05-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/18/Android-Root-Note/">Android Root Note</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="How-Apps-Use-Root-Privilege"><a href="#How-Apps-Use-Root-Privilege" class="headerlink" title="How Apps Use Root Privilege"></a>How Apps Use Root Privilege</h3><p>Apps use the following code to gain root privilege. Basically, a new root shell process is created with <code>Runtime.getRuntime().exec(&quot;su&quot;)</code>. Then commands are sent to the new process through stdin.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">OutputStream stdin = <span class="keyword">null</span>;</span><br><span class="line">DataOutputStream os = <span class="keyword">null</span>;</span><br><span class="line">Process process = Runtime.getRuntime().exec(<span class="string">"su"</span>);</span><br><span class="line"></span><br><span class="line">stdin = process.getOutputStream();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    os = <span class="keyword">new</span> DataOutputStream(stdin);</span><br><span class="line">    os.writeBytes(<span class="string">"ls /data\n"</span>);</span><br><span class="line">    os.writeBytes(<span class="string">"exit\n"</span>);</span><br><span class="line">    os.flush();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    close(os);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="How-Root-is-Achieved"><a href="#How-Root-is-Achieved" class="headerlink" title="How Root is Achieved"></a>How Root is Achieved</h3><p>Since Apps use <strong>su</strong> to gain root privilege, we need a su binary with the following requirements:</p>
-<ul>
-<li>existing. su may not necessarily exist.</li>
-<li>chmod 4755. Apps should be able to execute su. The suid bit should have been set.</li>
-<li>selinux is off. root can turn off selinux with the cmd <code>setenforce 0</code>.</li>
-<li>Disable the uid check for the su from AOSP. The su source code in AOSP contains the following check. Apps cannot pass this check.<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (current_uid != AID_ROOT &amp;&amp; current_uid != AID_SHELL) error(<span class="number">1</span>, <span class="number">0</span>, <span class="string">"not allowed"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>Even if the su meets the above requirements, it’s still possible that su doen’t work for Apps. For example, /system maybe mounted as nosuid for Apps. To bypass SELinux and other limitations, some su solutions start a root sudaemon at boot up time. When Apps execute /system/xbin/su, /system/xbin/su accepts the commands and forwards them to the sudaemon.</p>
-<h3 id="How-to-Root-an-Emulator-Device-with-eng-Build-works-on-Nougat"><a href="#How-to-Root-an-Emulator-Device-with-eng-Build-works-on-Nougat" class="headerlink" title="How to Root an Emulator/Device with eng Build (works on Nougat)"></a>How to Root an Emulator/Device with eng Build (works on Nougat)</h3><ul>
-<li>Download <a href="http://www.supersu.com/download" target="_blank" rel="noopener">SuperSu ZIP format</a></li>
-<li>Start up the emulator with a writable system partition.<br><code>emulator -avd [emulator_name] -writable-system</code></li>
-<li><p>Unzip SuperSU. Get the SU related binaries for the correct architecture and put it in the right directory</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb remount</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su /system/xbin/su <span class="comment"># may need su.pie, adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su.pie /system/xbin/su</span></span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/supolicy /system/xbin</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/libsupol.so /system/lib</span><br><span class="line">adb shell chmod 06755 /system/xbin/su</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Start the su daemon</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell /system/xbin/su --init</span><br><span class="line">adb shell /system/xbin/su --daemon</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Turn off SELinux</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell setenforce 0</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Install SuperSu App</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb install &#123;supsersu_path&#125;/common/Superuser.apk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Open SuperSu App</p>
-<ul>
-<li>If it complains about that the device is not rooted, you may have missed some previous steps. Check and do it again.</li>
-<li>If it complains about outdated su binary, you can ignore it. <strong>If you accept to update the su binary, it is possible that your device can NOT boot up.</strong> If you decline to update the su binary, you need to turn off selinux every time you reboot the device.</li>
-</ul>
-</li>
-</ul>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://infosectrek.wordpress.com/2017/03/06/rooting-the-android-emulator/" target="_blank" rel="noopener">Rooting the Android Emulator – on Android Studio 2.3 (Android 4.4+)</a><br><a href="http://www.imooc.com/learn/126" target="_blank" rel="noopener">Android系统Root原理初探</a><br><a href="http://www.imooc.com/learn/153" target="_blank" rel="noopener">Android高级Root技术原理解析</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cjfbr48cq0008kl6cxrln5o16" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
 
     </footer>
   </div>
@@ -559,7 +530,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
     </div>
   </div>
 
@@ -569,7 +540,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 14px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a>
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 14px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a>
     </div>
   </div>
 
@@ -591,6 +562,10 @@
       <ul>
         
           <li>
+            <a href="/2018/03/29/Clang-fsanitize-Notes/">Clang fsanitize Notes</a>
+          </li>
+        
+          <li>
             <a href="/2018/03/27/VMware-open-vm-tools/">VMware open-vm-tools</a>
           </li>
         
@@ -604,10 +579,6 @@
         
           <li>
             <a href="/2018/03/20/Good-MacOS-Software/">Good MacOS Software</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/02/How-to-Modify-jar-File/">How to Modify jar File</a>
           </li>
         
       </ul>

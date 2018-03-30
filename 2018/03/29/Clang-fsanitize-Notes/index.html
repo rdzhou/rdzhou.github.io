@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: HTTPS | XBlog</title>
+  <title>Clang fsanitize Notes | XBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="XBlog">
-<meta property="og:url" content="http://rdzhou.github.io/tags/HTTPS/index.html">
+  <meta name="description" content="-fsanitize=xxx should be added to the command line for both compiling and linking clang can be used to compile cpp files. However, clang++ must be used to link for cpp programs.  12clang -fsanitize=u">
+<meta name="keywords" content="clang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clang fsanitize Notes">
+<meta property="og:url" content="http://rdzhou.github.io/2018/03/29/Clang-fsanitize-Notes/index.html">
 <meta property="og:site_name" content="XBlog">
+<meta property="og:description" content="-fsanitize=xxx should be added to the command line for both compiling and linking clang can be used to compile cpp files. However, clang++ must be used to link for cpp programs.  12clang -fsanitize=u">
+<meta property="og:updated_time" content="2018-03-30T00:10:36.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XBlog">
+<meta name="twitter:title" content="Clang fsanitize Notes">
+<meta name="twitter:description" content="-fsanitize=xxx should be added to the command line for both compiling and linking clang can be used to compile cpp files. However, clang++ must be used to link for cpp programs.  12clang -fsanitize=u">
   
     <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
   
@@ -59,39 +64,59 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/" class="archive-article-date">
-  <time datetime="2017-03-31T08:52:21.000Z" itemprop="datePublished">Mar 31</time>
+        <section id="main"><article id="post-Clang-fsanitize-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/29/Clang-fsanitize-Notes/" class="article-date">
+  <time datetime="2018-03-30T00:06:14.000Z" itemprop="datePublished">2018-03-29</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/">Domain Names are Not Protected by HTTPS</a>
+    <h1 class="article-title" itemprop="name">
+      Clang fsanitize Notes
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><code>-fsanitize=xxx</code> should be added to the command line for both <strong>compiling</strong> and <strong>linking</strong></li>
+<li>clang can be used to <strong>compile</strong> cpp files. However, clang++ must be used to <strong>link</strong> for cpp programs.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang -fsanitize=undefined -c -o test.o test.cpp</span><br><span class="line">clang++ -fsanitize=undefined -o <span class="built_in">test</span> test.o</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html" target="_blank" rel="noopener">Clang 7 documentation - UndefinedBehaviorSanitizer</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2018/03/29/Clang-fsanitize-Notes/" data-id="cjfd70yc6000gyq6cxa9lvv82" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clang/">clang</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/27/VMware-open-vm-tools/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">VMware open-vm-tools</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

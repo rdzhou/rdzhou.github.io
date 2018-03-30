@@ -61,6 +61,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Android-Root-Note" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/18/Android-Root-Note/" class="article-date">
+  <time datetime="2017-05-18T21:33:08.000Z" itemprop="datePublished">2017-05-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/18/Android-Root-Note/">Android Root Note</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="How-Apps-Use-Root-Privilege"><a href="#How-Apps-Use-Root-Privilege" class="headerlink" title="How Apps Use Root Privilege"></a>How Apps Use Root Privilege</h3><p>Apps use the following code to gain root privilege. Basically, a new root shell process is created with <code>Runtime.getRuntime().exec(&quot;su&quot;)</code>. Then commands are sent to the new process through stdin.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">OutputStream stdin = <span class="keyword">null</span>;</span><br><span class="line">DataOutputStream os = <span class="keyword">null</span>;</span><br><span class="line">Process process = Runtime.getRuntime().exec(<span class="string">"su"</span>);</span><br><span class="line"></span><br><span class="line">stdin = process.getOutputStream();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    os = <span class="keyword">new</span> DataOutputStream(stdin);</span><br><span class="line">    os.writeBytes(<span class="string">"ls /data\n"</span>);</span><br><span class="line">    os.writeBytes(<span class="string">"exit\n"</span>);</span><br><span class="line">    os.flush();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    close(os);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="How-Root-is-Achieved"><a href="#How-Root-is-Achieved" class="headerlink" title="How Root is Achieved"></a>How Root is Achieved</h3><p>Since Apps use <strong>su</strong> to gain root privilege, we need a su binary with the following requirements:</p>
+<ul>
+<li>existing. su may not necessarily exist.</li>
+<li>chmod 4755. Apps should be able to execute su. The suid bit should have been set.</li>
+<li>selinux is off. root can turn off selinux with the cmd <code>setenforce 0</code>.</li>
+<li>Disable the uid check for the su from AOSP. The su source code in AOSP contains the following check. Apps cannot pass this check.<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (current_uid != AID_ROOT &amp;&amp; current_uid != AID_SHELL) error(<span class="number">1</span>, <span class="number">0</span>, <span class="string">"not allowed"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Even if the su meets the above requirements, it’s still possible that su doen’t work for Apps. For example, /system maybe mounted as nosuid for Apps. To bypass SELinux and other limitations, some su solutions start a root sudaemon at boot up time. When Apps execute /system/xbin/su, /system/xbin/su accepts the commands and forwards them to the sudaemon.</p>
+<h3 id="How-to-Root-an-Emulator-Device-with-eng-Build-works-on-Nougat"><a href="#How-to-Root-an-Emulator-Device-with-eng-Build-works-on-Nougat" class="headerlink" title="How to Root an Emulator/Device with eng Build (works on Nougat)"></a>How to Root an Emulator/Device with eng Build (works on Nougat)</h3><ul>
+<li>Download <a href="http://www.supersu.com/download" target="_blank" rel="noopener">SuperSu ZIP format</a></li>
+<li>Start up the emulator with a writable system partition.<br><code>emulator -avd [emulator_name] -writable-system</code></li>
+<li><p>Unzip SuperSU. Get the SU related binaries for the correct architecture and put it in the right directory</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb remount</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su /system/xbin/su <span class="comment"># may need su.pie, adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su.pie /system/xbin/su</span></span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/supolicy /system/xbin</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/libsupol.so /system/lib</span><br><span class="line">adb shell chmod 06755 /system/xbin/su</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Start the su daemon</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell /system/xbin/su --init</span><br><span class="line">adb shell /system/xbin/su --daemon</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Turn off SELinux</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell setenforce 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Install SuperSu App</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb install &#123;supsersu_path&#125;/common/Superuser.apk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Open SuperSu App</p>
+<ul>
+<li>If it complains about that the device is not rooted, you may have missed some previous steps. Check and do it again.</li>
+<li>If it complains about outdated su binary, you can ignore it. <strong>If you accept to update the su binary, it is possible that your device can NOT boot up.</strong> If you decline to update the su binary, you need to turn off selinux every time you reboot the device.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://infosectrek.wordpress.com/2017/03/06/rooting-the-android-emulator/" target="_blank" rel="noopener">Rooting the Android Emulator – on Android Studio 2.3 (Android 4.4+)</a><br><a href="http://www.imooc.com/learn/126" target="_blank" rel="noopener">Android系统Root原理初探</a><br><a href="http://www.imooc.com/learn/153" target="_blank" rel="noopener">Android高级Root技术原理解析</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cjfd70yc10009yq6cuqs8jgqm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Automatically-Turn-on-NumLock-for-Ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" class="article-date">
@@ -92,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" data-id="cjfbr48cs000akl6cb1ip22e7" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" data-id="cjfd70yc2000cyq6cdlx5l1ns" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
@@ -134,7 +205,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/27/ohmyzsh-Configuration/" data-id="cjfbr48dw002ekl6cvrgcsvpq" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/27/ohmyzsh-Configuration/" data-id="cjfd70yd30027yq6cvv6ql0cv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
@@ -173,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/27/Use-Ctrl-Shift-to-Turn-on-off-IME-for-Windows-8-10/" data-id="cjfbr48dq0024kl6cs5znbrt3" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/27/Use-Ctrl-Shift-to-Turn-on-off-IME-for-Windows-8-10/" data-id="cjfd70yd00020yq6crv5386r8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -215,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/25/Cygwin-Configuration/" data-id="cjfbr48cx000ikl6cuo44he1p" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/25/Cygwin-Configuration/" data-id="cjfd70yca000lyq6cok58j4um" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cygwin/">Cygwin</a></li></ul>
@@ -264,7 +335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/23/Sublime-Text-Good-Plugins/" data-id="cjfbr48dm001vkl6chasi7me7" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/23/Sublime-Text-Good-Plugins/" data-id="cjfd70ycw001uyq6cpvmrerqt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li></ul>
@@ -304,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/Fix-Hexo-Display-Errors/" data-id="cjfbr48d2000qkl6cksi161ks" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/Fix-Hexo-Display-Errors/" data-id="cjfd70ycc000qyq6cujulfw71" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -349,7 +420,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/ADB-Notes/" data-id="cjfbr48cg0000kl6chtx87mhb" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/ADB-Notes/" data-id="cjfd70ybs0001yq6cm3jyn9c1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ADB/">ADB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -398,7 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/Cannot-Open-File-in-Assets-Error/" data-id="cjfbr48ct000dkl6czhtm0atr" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/Cannot-Open-File-in-Assets-Error/" data-id="cjfd70yc00008yq6cgex6471f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -436,53 +507,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Add-An-Android-Service/" data-id="cjfbr48cj0001kl6cix71q8h1" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/06/Add-An-Android-Service/" data-id="cjfd70ybo0000yq6cc9yixswd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TODO/">TODO</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Generate-Public-Private-Key-Pairs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/06/Generate-Public-Private-Key-Pairs/" class="article-date">
-  <time datetime="2017-04-07T01:03:21.000Z" itemprop="datePublished">2017-04-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/06/Generate-Public-Private-Key-Pairs/">Generate Public/Private Key Pairs</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Become-a-Certificate-Authority-CA"><a href="#Become-a-Certificate-Authority-CA" class="headerlink" title="Become a Certificate Authority (CA)"></a>Become a Certificate Authority (CA)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cp /usr/lib/ssl/openssl.cnf ./</span><br><span class="line">$ mkdir -p ./demoCA/certs ./demoCA/crl ./demoCA/newcerts</span><br><span class="line">$ touch ./demoCA/index.txt</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"1000"</span> &gt; ./demoCA/serial</span><br><span class="line">$ openssl req -new -x509 -keyout ca.key -out ca.crt -config openssl.cnf</span><br></pre></td></tr></table></figure>
-<p>Open openssl.cnf and change “policy = policy_match” to “policy = policy_anything”</p>
-<h2 id="Create-a-Certificate"><a href="#Create-a-Certificate" class="headerlink" title="Create a Certificate"></a>Create a Certificate</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># Generate public/private key pair</span></span><br><span class="line">$ openssl genrsa -aes128 -out server.key 1024</span><br><span class="line">$ <span class="comment"># show content</span></span><br><span class="line">$ openssl rsa -<span class="keyword">in</span> server.key -text</span><br><span class="line">$ <span class="comment"># Generate a Certificate Signing Request (CSR)</span></span><br><span class="line">$ openssl req -new -key server.key -out server.csr -config openssl.cnf</span><br><span class="line">$ <span class="comment"># Generating Certificates</span></span><br><span class="line">$ openssl ca -<span class="keyword">in</span> server.csr -out server.crt -cert ca.crt -keyfile ca.key -config openssl.cnf</span><br></pre></td></tr></table></figure>
-<h2 id="Create-Digital-Signature"><a href="#Create-Digital-Signature" class="headerlink" title="Create Digital Signature"></a>Create Digital Signature</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># prepare the file to sign</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"Hello, world!"</span> &gt; in.txt</span><br><span class="line">$ <span class="comment"># extract public key</span></span><br><span class="line">$ openssl rsa -<span class="keyword">in</span> server.key -pubout &gt; server.pub</span><br><span class="line">$ <span class="comment"># generate signature with private key</span></span><br><span class="line">$ openssl dgst -sha256 -sign server.key -out in.txt.sha256 in.txt</span><br><span class="line">$ <span class="comment"># verify the signature with public key</span></span><br><span class="line">$ openssl dgst -sha256 -verify server.pub -signature in.txt.sha256 in.txt</span><br></pre></td></tr></table></figure>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Crypto/Crypto_PublicKey/Crypto_PublicKey.pdf" target="_blank" rel="noopener">Crypto Lab – Public-Key Cryptography and PKI</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Generate-Public-Private-Key-Pairs/" data-id="cjfbr48d4000ukl6cyghyo2a4" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cryptography/">Cryptography</a></li></ul>
 
     </footer>
   </div>
@@ -507,7 +535,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
     </div>
   </div>
 
@@ -517,7 +545,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 14px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a>
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 14px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a>
     </div>
   </div>
 
@@ -539,6 +567,10 @@
       <ul>
         
           <li>
+            <a href="/2018/03/29/Clang-fsanitize-Notes/">Clang fsanitize Notes</a>
+          </li>
+        
+          <li>
             <a href="/2018/03/27/VMware-open-vm-tools/">VMware open-vm-tools</a>
           </li>
         
@@ -552,10 +584,6 @@
         
           <li>
             <a href="/2018/03/20/Good-MacOS-Software/">Good MacOS Software</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/02/How-to-Modify-jar-File/">How to Modify jar File</a>
           </li>
         
       </ul>
