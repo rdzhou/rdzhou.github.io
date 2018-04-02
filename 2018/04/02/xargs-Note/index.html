@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/12 | XBlog</title>
+  <title>xargs Notes | XBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="XBlog">
-<meta property="og:url" content="http://rdzhou.github.io/archives/2017/12/index.html">
+  <meta name="description" content="Useful Options123456789101112131415161718192021222324252627#-n max-args, --max-args=max-args#  Use  at  most max-args arguments per command line.find . | xargs -n1 echo#-I replace-strfind . | xargs -n">
+<meta name="keywords" content="Shell,xargs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xargs Notes">
+<meta property="og:url" content="http://rdzhou.github.io/2018/04/02/xargs-Note/index.html">
 <meta property="og:site_name" content="XBlog">
+<meta property="og:description" content="Useful Options123456789101112131415161718192021222324252627#-n max-args, --max-args=max-args#  Use  at  most max-args arguments per command line.find . | xargs -n1 echo#-I replace-strfind . | xargs -n">
+<meta property="og:updated_time" content="2018-04-02T21:21:18.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XBlog">
+<meta name="twitter:title" content="xargs Notes">
+<meta name="twitter:description" content="Useful Options123456789101112131415161718192021222324252627#-n max-args, --max-args=max-args#  Use  at  most max-args arguments per command line.find . | xargs -n1 echo#-I replace-strfind . | xargs -n">
   
     <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
   
@@ -59,96 +64,57 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/27/Install-SGX/" class="archive-article-date">
-  <time datetime="2017-12-28T00:14:09.000Z" itemprop="datePublished">Dec 27</time>
+        <section id="main"><article id="post-xargs-Note" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/02/xargs-Note/" class="article-date">
+  <time datetime="2018-04-02T20:51:17.000Z" itemprop="datePublished">2018-04-02</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/27/Install-SGX/">Install SGX</a>
+    <h1 class="article-title" itemprop="name">
+      xargs Notes
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/" class="archive-article-date">
-  <time datetime="2017-12-20T22:50:00.000Z" itemprop="datePublished">Dec 20</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/">How to Check If an App is System App or Not</a>
-    </h1>
-  
+        <h3 id="Useful-Options"><a href="#Useful-Options" class="headerlink" title="Useful Options"></a>Useful Options</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-n max-args, --max-args=max-args</span></span><br><span class="line"><span class="comment">#  Use  at  most max-args arguments per command line.</span></span><br><span class="line">find . | xargs -n1 <span class="built_in">echo</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#-I replace-str</span></span><br><span class="line">find . | xargs -n1 -I% <span class="built_in">echo</span> % suffix</span><br><span class="line"></span><br><span class="line"><span class="comment">#-P max-procs, --max-procs=max-procs</span></span><br><span class="line"><span class="comment">#  Run up to max-procs processes at a time; the default is 1.</span></span><br><span class="line">find . | xargs -P10 -n1 -I% sleep 1</span><br><span class="line"></span><br><span class="line"><span class="comment">#-0, --null</span></span><br><span class="line"><span class="comment">#  Input items are terminated by a null character instead of by whitespace.</span></span><br><span class="line">find . -<span class="built_in">type</span> f -name <span class="string">"*.java"</span> -print0 |xargs -0 grep -li <span class="string">"keyword"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#-p, --interactive</span></span><br><span class="line"><span class="comment">#  Prompt the user about whether to run each command line and read a line from the terminal. Implies -t.</span></span><br><span class="line">find . | xargs -p -n1 <span class="built_in">echo</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#-t, --verbose</span></span><br><span class="line"><span class="comment">#  Print the command line on the standard error output before executing it.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#--delimiter=delim, -d delim</span></span><br><span class="line"><span class="comment">#  Input items are terminated by the specified character.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#-a file, --arg-file=file</span></span><br><span class="line"><span class="comment">#  Read items from file instead of standard input.</span></span><br></pre></td></tr></table></figure>
+<h2 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h2><h3 id="Execute-Shell-Scripts"><a href="#Execute-Shell-Scripts" class="headerlink" title="Execute Shell Scripts"></a>Execute Shell Scripts</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The word bash at the end of the line is interpreted by bash</span></span><br><span class="line"><span class="comment"># -c as special parameter $0.</span></span><br><span class="line"><span class="comment"># The single quote ' is critical, otherwise $filename will be</span></span><br><span class="line"><span class="comment"># replaced before the script is executed.</span></span><br><span class="line">find /path -<span class="built_in">type</span> f -name <span class="string">'*~'</span> -print0 | xargs -0 bash -c \</span><br><span class="line"><span class="string">'for filename; do cp -a "$filename" ~/backups; done'</span> bash</span><br></pre></td></tr></table></figure>
+<h3 id="Prevent-xargs-from-Quitting-on-Error"><a href="#Prevent-xargs-from-Quitting-on-Error" class="headerlink" title="Prevent xargs from Quitting on Error"></a>Prevent xargs from Quitting on Error</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># instead echo the commands and pipe to bash, echo will not return error</span></span><br><span class="line">find . | xargs -n1 <span class="built_in">echo</span> command_that_might_exit | bash</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://en.wikipedia.org/wiki/Xargs" target="_blank" rel="noopener">xargs - Wikipedia</a><br><a href="https://serverfault.com/questions/289094/prevent-xargs-from-quitting-on-error" target="_blank" rel="noopener">prevent xargs from quitting on error</a></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/20/How-to-Sign-Android-App-with-System-Signature/" class="archive-article-date">
-  <time datetime="2017-12-20T22:30:59.000Z" itemprop="datePublished">Dec 20</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/How-to-Sign-Android-App-with-System-Signature/">How to Sign Android App with Platform Signature</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/20/GCC-Optimization-Levels/" class="archive-article-date">
-  <time datetime="2017-12-20T21:43:55.000Z" itemprop="datePublished">Dec 20</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2018/04/02/xargs-Note/" data-id="cjfiqqnj3002l2q6c79bi28ya" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/GCC-Optimization-Levels/">GCC Optimization Levels</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/30/Increase-Open-File-Limit/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Increase Open File Limit</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

@@ -61,6 +61,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Install-SGX" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/27/Install-SGX/" class="article-date">
+  <time datetime="2017-12-28T00:14:09.000Z" itemprop="datePublished">2017-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/27/Install-SGX/">Install SGX</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>For Ubuntu 16.04 LTS.</p>
+<p>Download the following installation packages from <a href="https://01.org/intel-software-guard-extensions/downloads" target="_blank" rel="noopener">https://01.org/intel-software-guard-extensions/downloads</a></p>
+<ul>
+<li>Intel(R) SGX driver: <code>sgx_linux_x64_driver.bin</code></li>
+<li>Intel(R) SGX PSW: <code>sgx_linux_x64_psw_&lt;version&gt;.bin</code></li>
+<li>Intel(R) SGX SDK: <code>sgx_linux_x64_sdk_&lt;version&gt;.bin</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Intel(R) SGX PSW Dependecies</span></span><br><span class="line">sudo apt-get install libssl-dev libcurl4-openssl-dev libprotobuf-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># Intel(R) SGX SDK Dependecies</span></span><br><span class="line">sudo apt-get install build-essential</span><br><span class="line"></span><br><span class="line"><span class="comment"># (Optional) Download [iclsClient]</span></span><br><span class="line"><span class="comment"># (https://software.intel.com/en-us/sgx-sdk/download)</span></span><br><span class="line"><span class="comment"># and install it using the following commands</span></span><br><span class="line">sudo apt-get install alien</span><br><span class="line">sudo alien --scripts iclsClient-1.45.449.12-1.x86_64.rpm</span><br><span class="line">sudo dpkg -i iclsclient_1.45.449.12-2_amd64.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download source code from the[dynamic-application-loader-host-inter-face]</span></span><br><span class="line"><span class="comment"># (https://github.com/01org/dynamic-application-loader-host-interface)</span></span><br><span class="line"><span class="comment"># project. In the source code folder build and install the JHI service using</span></span><br><span class="line"><span class="comment"># the following commands</span></span><br><span class="line">sudo apt-get install uuid-dev libxml2-dev cmake pkg-config</span><br><span class="line">cmake .;make;sudo make install;sudo systemctl <span class="built_in">enable</span> jhi</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install the following downloaded packages </span></span><br><span class="line"><span class="comment"># 1. Intel(R) SGX driver</span></span><br><span class="line"><span class="comment"># 2. Intel(R) SGX PSW</span></span><br><span class="line"><span class="comment"># 3. Intel(R) SGX SDK</span></span><br><span class="line">sudo ./sgx_linux_x64_driver.bin</span><br><span class="line">sudo ./sgx_linux_x64_psw_&lt;version&gt;.bin</span><br><span class="line"><span class="comment"># type no and type /opt/intel as the installation path</span></span><br><span class="line">sudo ./sgx_linux_x64_sdk_&lt;version&gt;.bin</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /opt/intel/sgxsdk/environment</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use the LocalAttestation to test</span></span><br><span class="line">cp -r /opt/intel/sgxsdk/SampleCode .</span><br><span class="line"><span class="built_in">cd</span> SampleCode/LocalAttestation</span><br><span class="line">make SGX_MODE=SIM</span><br><span class="line">./app</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://01.org/intel-software-guard-extensions/documentation/intel-sgx-sdk-installation-guide" target="_blank" rel="noopener">Intel® Software Guard Extensions for Linux* OS</a><br><a href="https://download.01.org/intel-sgx/linux-2.0/docs/Intel_SGX_Installation_Guide_Linux_2.0_Open_Source.pdf" target="_blank" rel="noopener">Intel_SGX_Installation_Guide_Linux_2.0_Open_Source</a><br><a href="https://download.01.org/intel-sgx/linux-2.0/docs/Intel_SGX_SDK_Developer_Reference_Linux_2.0_Open_Source.pdf" target="_blank" rel="noopener">Intel_SGX_SDK_Developer_Reference_Linux_2.0_Open_Source</a><br><a href="https://download.01.org/intel-sgx/linux-2.0/docs/Intel_SGX_Developer_Guide.pdf" target="_blank" rel="noopener">Intel_SGX_Developer_Guide</a><br><a href="https://software.intel.com/sites/default/files/managed/48/88/329298-002.pdf" target="_blank" rel="noopener">Intel® Software Guard Extensions Programming Reference</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/12/27/Install-SGX/" data-id="cjfiqqnij001g2q6c0kwifrha" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SGX/">SGX</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-How-to-Check-If-an-App-is-System-App-or-Not" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/" class="article-date">
@@ -109,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/" data-id="cjfef6bfm000x3g6c3qrdy9db" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/" data-id="cjfiqqnic00102q6ca1b3ai3i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -151,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/12/20/How-to-Sign-Android-App-with-System-Signature/" data-id="cjfef6bfs001b3g6colmyqgml" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/12/20/How-to-Sign-Android-App-with-System-Signature/" data-id="cjfiqqnih001b2q6cljyyy06f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -191,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/12/20/GCC-Optimization-Levels/" data-id="cjfef6bfl000u3g6ckznjgdp8" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/12/20/GCC-Optimization-Levels/" data-id="cjfiqqni8000u2q6cewq5yrh0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCC/">GCC</a></li></ul>
@@ -231,7 +278,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/10/20/Disable-Shift-for-Triggering-Input-Method-for-fcitx/" data-id="cjfef6bfi000n3g6c76pu1dly" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/10/20/Disable-Shift-for-Triggering-Input-Method-for-fcitx/" data-id="cjfiqqni5000o2q6c0lziv4dm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fcitx/">fcitx</a></li></ul>
@@ -270,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/09/19/Sublime-Text-Useful-Code/" data-id="cjfef6bg700233g6c73nsejc5" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/09/19/Sublime-Text-Useful-Code/" data-id="cjfiqqniu00252q6ce2kftomx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li></ul>
@@ -309,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/08/02/Shell-Notes/" data-id="cjfef6bg4001y3g6c3vkya6hg" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/08/02/Shell-Notes/" data-id="cjfiqqnit00202q6c7refhneu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
@@ -398,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/08/02/Outlook-Search-Criteria/" data-id="cjfef6bg1001s3g6cnvxliuvt" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/08/02/Outlook-Search-Criteria/" data-id="cjfiqqniq001v2q6ce5p6p67n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Outlook/">Outlook</a></li></ul>
@@ -442,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/07/31/How-to-Remove-u200b/" data-id="cjfef6bfr00193g6chkyii73p" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/07/31/How-to-Remove-u200b/" data-id="cjfiqqnig00192q6c8bpblxzw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li></ul>
@@ -481,50 +528,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cjfef6bfb000e3g6crw7ukwsi" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cjfiqqnhy000e2q6cc2u9wjkk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" class="article-date">
-  <time datetime="2017-06-13T22:11:05.000Z" itemprop="datePublished">2017-06-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/">How to Disable &quot;Allow access to your data&quot; dialog in Ubuntu</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>When the Android phone is connected to Ubuntu, the dialog “Allow access to your data” keeps poping up no matter you select “ALLOW” or “DENY”.</p>
-<p>This is because Ubuntu is trying to mount the Android phone. To disable the dialog, just disable the automount feature for Ubuntu.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.media-handling automount <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" data-id="cjfef6bfo00123g6cawafhlwj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
 
     </footer>
   </div>
@@ -549,7 +556,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
     </div>
   </div>
 
@@ -559,7 +566,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a>
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 12px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
     </div>
   </div>
 
@@ -568,7 +575,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
     </div>
   </div>
 
@@ -579,6 +586,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/04/02/xargs-Note/">xargs Notes</a>
+          </li>
         
           <li>
             <a href="/2018/03/30/Increase-Open-File-Limit/">Increase Open File Limit</a>
@@ -594,10 +605,6 @@
         
           <li>
             <a href="/2018/03/23/Set-Docker-Window-Size/">Set Docker Window Size</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/20/MacOS-Keyboard-Shortcuts/">MacOS Keyboard Shortcuts</a>
           </li>
         
       </ul>
