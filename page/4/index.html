@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://rdzhou.github.io"></form>
@@ -60,6 +60,51 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-ADB-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/07/ADB-Notes/" class="article-date">
+  <time datetime="2017-04-08T00:57:57.000Z" itemprop="datePublished">2017-04-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/07/ADB-Notes/">ADB Notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Miscellaneous"><a href="#Miscellaneous" class="headerlink" title="Miscellaneous"></a>Miscellaneous</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">adb reboot</span><br><span class="line">adb reboot download</span><br><span class="line"><span class="comment"># uninstall package</span></span><br><span class="line">adb uninstall com.my.firstapp</span><br><span class="line"><span class="comment"># power off</span></span><br><span class="line">adb reboot -p</span><br><span class="line"><span class="comment"># erase user data, then reboot</span></span><br><span class="line">adb shell recovery --wipe_data</span><br></pre></td></tr></table></figure>
+<h3 id="Remove-System-App"><a href="#Remove-System-App" class="headerlink" title="Remove System App"></a>Remove System App</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb remount</span><br><span class="line">adb shell rm /system/priv-app/GoogleLoginService.apk</span><br></pre></td></tr></table></figure>
+<h3 id="Root-Unroot"><a href="#Root-Unroot" class="headerlink" title="Root/Unroot"></a>Root/Unroot</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb unroot</span><br></pre></td></tr></table></figure>
+<h3 id="List-Package"><a href="#List-Package" class="headerlink" title="List Package"></a>List Package</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm list packages</span><br><span class="line"><span class="comment"># list the package names as well as the path to the installed APK files</span></span><br><span class="line">adb shell pm list packages -f</span><br><span class="line"><span class="comment"># list only the system packages</span></span><br><span class="line">adb shell pm list packages -s</span><br><span class="line"><span class="comment"># list only 3rd party (or non-system) packages</span></span><br><span class="line">adb shell pm list packages -3</span><br><span class="line"><span class="comment"># list all the disabled package names</span></span><br><span class="line">adb shell pm list packages -d</span><br><span class="line"><span class="comment"># list all the enabled package names</span></span><br><span class="line">adb shell pm list packages -e</span><br></pre></td></tr></table></figure>
+<h3 id="Simulate-Keyboard-Input"><a href="#Simulate-Keyboard-Input" class="headerlink" title="Simulate Keyboard Input"></a>Simulate Keyboard Input</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell input keyevent &lt;event_code&gt;</span><br><span class="line">adb shell input text &lt;string&gt;</span><br><span class="line"><span class="comment"># KEYCODE_ENTER 66</span></span><br></pre></td></tr></table></figure>
+<h3 id="UID-Lookup"><a href="#UID-Lookup" class="headerlink" title="UID Lookup"></a>UID Lookup</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># package_name to uid</span></span><br><span class="line">adb shell dumpsys package &lt;package_name&gt; |grep userId</span><br><span class="line"></span><br><span class="line"><span class="comment"># uid to package_name</span></span><br><span class="line">adb shell dumpsys package | grep -A1 <span class="string">'userId=&lt;uid&gt;'</span></span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">adb shell cat /data/system/packages.list | grep &lt;uid&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="http://www.digitalinternals.com/mobile/android-adb-list-installed-package-names/416/" target="_blank" rel="noopener">Android: ADB – List Installed Package Names</a><br><a href="https://developer.android.com/reference/android/view/KeyEvent.html" target="_blank" rel="noopener">KeyEvent</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/04/07/ADB-Notes/" data-id="cjfn28ajd002cs26cusex5qkm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ADB/">ADB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-Cannot-Open-File-in-Assets-Error" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -98,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/Cannot-Open-File-in-Assets-Error/" data-id="cjfiyiyld0009376c55ky3n8l" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/Cannot-Open-File-in-Assets-Error/" data-id="cjfn28aia000ks26crmfelp0x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -136,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Add-An-Android-Service/" data-id="cjfiyiyl10000376cc95wmdvz" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/06/Add-An-Android-Service/" data-id="cjfn28ahi0000s26cshz2cxzz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TODO/">TODO</a></li></ul>
@@ -179,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Generate-Public-Private-Key-Pairs/" data-id="cjfiyiylp000q376ctzz6a6cl" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/06/Generate-Public-Private-Key-Pairs/" data-id="cjfn28aim000ws26ci3101sis" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cryptography/">Cryptography</a></li></ul>
@@ -219,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Using-Android-KeyChain/" data-id="cjfiyiynl002z376cpi81sgb8" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/06/Using-Android-KeyChain/" data-id="cjfn28ajf002fs26c1azvr9aw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -260,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/04/Android-KeyStore-Notes/" data-id="cjfiyiyn00020376cor71z4m7" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/04/Android-KeyStore-Notes/" data-id="cjfn28ahl0001s26c9y1z4d1w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KeyStore/">KeyStore</a></li></ul>
@@ -300,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/" data-id="cjfiyiylm000m376ctzm6sbu8" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/" data-id="cjfn28aij000rs26cparkskpv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -350,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/30/How-to-Get-Rid-of-the-Black-Screen-Issue-with-NoMachine-Virtual-Desktop/" data-id="cjfiyiylu000y376cmze0uqys" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/30/How-to-Get-Rid-of-the-Black-Screen-Issue-with-NoMachine-Virtual-Desktop/" data-id="cjfn28aip0013s26c36r4ox66" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li></ul>
@@ -403,7 +448,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/29/Android-Keystore-System-Notes/" data-id="cjfiyiyl80003376cwyafwlac" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/29/Android-Keystore-System-Notes/" data-id="cjfn28aho0003s26cs8waxklk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -442,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/29/Manage-Hexo-Blog-with-Git/" data-id="cjfiyiyn60027376cr1op57yr" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/29/Manage-Hexo-Blog-with-Git/" data-id="cjfn28aj0001ps26cov5gv6pl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -454,50 +499,10 @@
 
 
   
-    <article id="post-Regex-Notes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/29/Regex-Notes/" class="article-date">
-  <time datetime="2017-03-29T08:40:01.000Z" itemprop="datePublished">2017-03-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/29/Regex-Notes/">Regex Notes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h2><p><code>(?s)</code> For “single line mode” makes the dot match all characters, including line breaks. Not supported by Ruby or JavaScript.<br><code>*?</code> Ungreedy<br><code>(?&lt;=(regex))</code> Positive Lookbehind<br><code>(?&lt;!(regex))</code> Negative Lookbehind<br><code>(?=(regex))</code>  Positive Lookahead<br><code>(?!(regex))</code>  Negative Lookahead</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><p><a href="http://www.regular-expressions.info/tutorial.html" target="_blank" rel="noopener">Regular-Expressions.info Tutorial</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/29/Regex-Notes/" data-id="cjfiyiynd002k376c9q4pyjvj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/">Regex</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Forrige</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Neste &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
   </nav>
 </section>
         
@@ -510,7 +515,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
     </div>
   </div>
 
@@ -520,14 +525,14 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 12px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 12px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Arkiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
     </div>
@@ -537,12 +542,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Siste innlegg</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2018/04/02/xargs-Note/">xargs Notes</a>
+            <a href="/2018/04/02/Matlab-Octave-Notes/">Matlab/Octave Notes</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/02/xargs-Notes/">xargs Notes</a>
           </li>
         
           <li>
@@ -555,10 +564,6 @@
         
           <li>
             <a href="/2018/03/27/VMware-open-vm-tools/">VMware open-vm-tools</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/23/Set-Docker-Window-Size/">Set Docker Window Size</a>
           </li>
         
       </ul>
