@@ -61,6 +61,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-How-to-Remove-u200b" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/31/How-to-Remove-u200b/" class="article-date">
+  <time datetime="2017-07-31T17:59:28.000Z" itemprop="datePublished">2017-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/31/How-to-Remove-u200b/">How to Remove u200b</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a>Remove</h2><p>Search regular expression <code>\x{200b}</code>.<br><code>\u200b</code> cannot match it in SublimeText.</p>
+<h2 id="u200b-ZERO-WIDTH-SPACE"><a href="#u200b-ZERO-WIDTH-SPACE" class="headerlink" title="u200b (ZERO WIDTH SPACE)"></a>u200b (ZERO WIDTH SPACE)</h2><p>UTF-8 (hex) 0xE2 0x80 0x8B (e2808b)<br>UTF-16 (hex)    0x200B (200b)</p>
+<h2 id="SublimeText-Plugin"><a href="#SublimeText-Plugin" class="headerlink" title="SublimeText Plugin"></a>SublimeText Plugin</h2><p><code>Preferences -&gt; Browse Packages</code>. Put the following two files under <code>User</code>.</p>
+<h3 id="x-u200b-killer-py"><a href="#x-u200b-killer-py" class="headerlink" title="x_u200b_killer.py"></a>x_u200b_killer.py</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sublime, sublime_plugin</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShowU200b</span><span class="params">(sublime_plugin.EventListener)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">on_modified_async</span><span class="params">(self, view)</span>:</span></span><br><span class="line">        u200b_regions = view.find_all(<span class="string">'\u200b'</span>)</span><br><span class="line">        <span class="keyword">if</span> len(u200b_regions) &gt; <span class="number">0</span>:</span><br><span class="line">            view.add_regions(<span class="string">"u200b_regions"</span>, u200b_regions, <span class="string">"string"</span>, <span class="string">"circle"</span>)</span><br><span class="line">            view.show_popup(<span class="string">'U200B Detected!!!'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            view.erase_regions(<span class="string">"u200b_regions"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RemoveU200b</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        print(<span class="string">'Removing U200B'</span>)</span><br><span class="line"></span><br><span class="line">        regions = self.view.find_all(<span class="string">'\u200b'</span>)</span><br><span class="line">        <span class="keyword">for</span> r <span class="keyword">in</span> reversed(regions):</span><br><span class="line">            self.view.erase(edit, r)</span><br></pre></td></tr></table></figure>
+<h3 id="x-u200b-killer-sublime-commands"><a href="#x-u200b-killer-sublime-commands" class="headerlink" title="x_u200b_killer.sublime-commands"></a>x_u200b_killer.sublime-commands</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123; <span class="attr">"caption"</span>: <span class="string">"Remove U200b"</span>, <span class="attr">"command"</span>: <span class="string">"remove_u200b"</span> &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://www.fileformat.info/info/unicode/char/200B/index.htm" target="_blank" rel="noopener">Unicode Character ‘ZERO WIDTH SPACE’ (U+200B)</a><br><a href="https://stackoverflow.com/questions/20356784/delete-u200b-zero-width-space-characters-using-sublime-text-3" target="_blank" rel="noopener">delete U+200B zero-width space characters using sublime text 3</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/07/31/How-to-Remove-u200b/" data-id="cjfohhoqn0013ix6czsqe536c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" class="article-date">
@@ -88,7 +132,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cjfn28aic000ls26cqzsw4kz6" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cjfohhoqa000fix6cl9s748xq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -128,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" data-id="cjfn28air0018s26c41byo2np" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" data-id="cjfohhoqp0017ix6cj4ey5mml" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
@@ -169,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/31/Common-OpenSSL-Commands/" data-id="cjfn28aie000ns26c1om95ydg" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/05/31/Common-OpenSSL-Commands/" data-id="cjfohhoqe000kix6cvdp7xb0t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li></ul>
@@ -240,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cjfn28ahq0005s26chgtszngo" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cjfohhoq40005ix6c09iqxab2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -283,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" data-id="cjfn28ahs0008s26cwu6g3863" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" data-id="cjfohhoq7000aix6c8hmfn6b7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
@@ -325,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/27/ohmyzsh-Configuration/" data-id="cjfn28aji002ks26ccq7hulh7" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/27/ohmyzsh-Configuration/" data-id="cjfohhorx0039ix6c3j6ezqtm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
@@ -364,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/27/Use-Ctrl-Shift-to-Turn-on-off-IME-for-Windows-8-10/" data-id="cjfn28aje002es26cybt3fzx0" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/27/Use-Ctrl-Shift-to-Turn-on-off-IME-for-Windows-8-10/" data-id="cjfohhorp002vix6cxefpm8mw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -406,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/25/Cygwin-Configuration/" data-id="cjfn28aig000ps26c4ei0l0rn" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/25/Cygwin-Configuration/" data-id="cjfohhoqf000nix6cj3msrt1j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cygwin/">Cygwin</a></li></ul>
@@ -457,50 +501,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/23/Sublime-Text-Good-Plugins/" data-id="cjfn28aja0026s26ca234xw6d" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/23/Sublime-Text-Good-Plugins/" data-id="cjfohhorn002six6ckol2c8eg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Fix-Hexo-Display-Errors" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/07/Fix-Hexo-Display-Errors/" class="article-date">
-  <time datetime="2017-04-08T01:37:02.000Z" itemprop="datePublished">2017-04-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/07/Fix-Hexo-Display-Errors/">Fix Hexo Display Errors</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Page-Button-Becomes-«-39-prev-39-and-39-next-39-»"><a href="#Page-Button-Becomes-«-39-prev-39-and-39-next-39-»" class="headerlink" title="Page Button Becomes « __(&#39;prev&#39;) and __(&#39;next&#39;) »"></a>Page Button Becomes <code>« __(&#39;prev&#39;)</code> and <code>__(&#39;next&#39;) »</code></h3><p>Repalce the following content in themes/landscape/layout/_partial/archive.ejs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- paginator(&#123;</span><br><span class="line">  prev_text: &quot;&amp;laquo; __(&apos;prev&apos;)&quot;,</span><br><span class="line">  next_text: &quot;__(&apos;next&apos;) &amp;raquo;&quot;</span><br><span class="line">&#125;) %&gt;</span><br></pre></td></tr></table></figure></p>
-<p>with<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- paginator(&#123;</span><br><span class="line">  prev_text: &quot;&amp;laquo; &quot; + __(&apos;prev&apos;),</span><br><span class="line">  next_text: __(&apos;next&apos;) + &quot; &amp;raquo;&quot;</span><br><span class="line">&#125;) %&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="The-Language-Becomes-Spanish-While-the-Configuration-is-English"><a href="#The-Language-Becomes-Spanish-While-the-Configuration-is-English" class="headerlink" title="The Language Becomes Spanish While the Configuration is English"></a>The Language Becomes Spanish While the Configuration is English</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/Fix-Hexo-Display-Errors/" data-id="cjfn28ais001as26c9836yze1" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
 
     </footer>
   </div>
@@ -557,6 +561,10 @@
       <ul>
         
           <li>
+            <a href="/2018/04/06/jQuerify/">jQuerify</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/02/Matlab-Octave-Notes/">Matlab/Octave Notes</a>
           </li>
         
@@ -570,10 +578,6 @@
         
           <li>
             <a href="/2018/03/29/Clang-fsanitize-Notes/">Clang fsanitize Notes</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/27/VMware-open-vm-tools/">VMware open-vm-tools</a>
           </li>
         
       </ul>

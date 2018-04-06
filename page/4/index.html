@@ -61,6 +61,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Fix-Hexo-Display-Errors" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/07/Fix-Hexo-Display-Errors/" class="article-date">
+  <time datetime="2017-04-08T01:37:02.000Z" itemprop="datePublished">2017-04-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/07/Fix-Hexo-Display-Errors/">Fix Hexo Display Errors</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Page-Button-Becomes-«-39-prev-39-and-39-next-39-»"><a href="#Page-Button-Becomes-«-39-prev-39-and-39-next-39-»" class="headerlink" title="Page Button Becomes « __(&#39;prev&#39;) and __(&#39;next&#39;) »"></a>Page Button Becomes <code>« __(&#39;prev&#39;)</code> and <code>__(&#39;next&#39;) »</code></h3><p>Repalce the following content in themes/landscape/layout/_partial/archive.ejs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- paginator(&#123;</span><br><span class="line">  prev_text: &quot;&amp;laquo; __(&apos;prev&apos;)&quot;,</span><br><span class="line">  next_text: &quot;__(&apos;next&apos;) &amp;raquo;&quot;</span><br><span class="line">&#125;) %&gt;</span><br></pre></td></tr></table></figure></p>
+<p>with<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- paginator(&#123;</span><br><span class="line">  prev_text: &quot;&amp;laquo; &quot; + __(&apos;prev&apos;),</span><br><span class="line">  next_text: __(&apos;next&apos;) + &quot; &amp;raquo;&quot;</span><br><span class="line">&#125;) %&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="The-Language-Becomes-Spanish-While-the-Configuration-is-English"><a href="#The-Language-Becomes-Spanish-While-the-Configuration-is-English" class="headerlink" title="The Language Becomes Spanish While the Configuration is English"></a>The Language Becomes Spanish While the Configuration is English</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/04/07/Fix-Hexo-Display-Errors/" data-id="cjfohhorm002qix6c664fjwda" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ADB-Notes" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/04/07/ADB-Notes/" class="article-date">
@@ -94,7 +134,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/ADB-Notes/" data-id="cjfn28ajd002cs26cusex5qkm" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/ADB-Notes/" data-id="cjfohhopw0000ix6cc752lpbi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ADB/">ADB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -143,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/Cannot-Open-File-in-Assets-Error/" data-id="cjfn28aia000ks26crmfelp0x" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/Cannot-Open-File-in-Assets-Error/" data-id="cjfohhoq8000dix6cluln1uhb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -181,7 +221,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Add-An-Android-Service/" data-id="cjfn28ahi0000s26cshz2cxzz" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/06/Add-An-Android-Service/" data-id="cjfohhoq00001ix6crbdr9ovn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TODO/">TODO</a></li></ul>
@@ -224,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Generate-Public-Private-Key-Pairs/" data-id="cjfn28aim000ws26ci3101sis" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/06/Generate-Public-Private-Key-Pairs/" data-id="cjfohhoqi000six6cpn50laz5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cryptography/">Cryptography</a></li></ul>
@@ -264,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Using-Android-KeyChain/" data-id="cjfn28ajf002fs26c1azvr9aw" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/06/Using-Android-KeyChain/" data-id="cjfohhorr002xix6cjdkq1z3s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -305,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/04/Android-KeyStore-Notes/" data-id="cjfn28ahl0001s26c9y1z4d1w" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/04/Android-KeyStore-Notes/" data-id="cjfohhoq30003ix6czy4daor9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KeyStore/">KeyStore</a></li></ul>
@@ -345,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/" data-id="cjfn28aij000rs26cparkskpv" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/" data-id="cjfohhoqt001hix6cqnnxxjlj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
@@ -395,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/30/How-to-Get-Rid-of-the-Black-Screen-Issue-with-NoMachine-Virtual-Desktop/" data-id="cjfn28aip0013s26c36r4ox66" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/30/How-to-Get-Rid-of-the-Black-Screen-Issue-with-NoMachine-Virtual-Desktop/" data-id="cjfohhoql000yix6chmiyiro7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li></ul>
@@ -448,49 +488,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/29/Android-Keystore-System-Notes/" data-id="cjfn28aho0003s26cs8waxklk" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/29/Android-Keystore-System-Notes/" data-id="cjfohhoq40004ix6c31ouoh8l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Manage-Hexo-Blog-with-Git" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/29/Manage-Hexo-Blog-with-Git/" class="article-date">
-  <time datetime="2017-03-29T08:54:43.000Z" itemprop="datePublished">2017-03-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/29/Manage-Hexo-Blog-with-Git/">Manage Hexo Blog with Git</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Just init the git repo and add *.<br>Hexo has already written the .gitignore to exlude the files you should not commit.<br>If there are .git inside theme, you shoud delete the .git folder or ignore it.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add *</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/29/Manage-Hexo-Blog-with-Git/" data-id="cjfn28aj0001ps26cov5gv6pl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
 
     </footer>
   </div>
@@ -547,6 +548,10 @@
       <ul>
         
           <li>
+            <a href="/2018/04/06/jQuerify/">jQuerify</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/02/Matlab-Octave-Notes/">Matlab/Octave Notes</a>
           </li>
         
@@ -560,10 +565,6 @@
         
           <li>
             <a href="/2018/03/29/Clang-fsanitize-Notes/">Clang fsanitize Notes</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/27/VMware-open-vm-tools/">VMware open-vm-tools</a>
           </li>
         
       </ul>
