@@ -5,16 +5,16 @@
   
   <title>Count Lines of Code | XBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="12# count lines of code in current directorygrep -c -e &quot;$&quot; -r -h . | python -c &quot;import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));&quot;">
+  <meta name="description" content="12345# count lines of code in current directorygrep -c -e &quot;$&quot; -r -h . | python -c &quot;import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));&quot;NAME_PATTERN=&quot;*.cc&quot;find . -">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Count Lines of Code">
 <meta property="og:url" content="http://rdzhou.github.io/2018/04/11/Count-Lines-of-Code/index.html">
 <meta property="og:site_name" content="XBlog">
-<meta property="og:description" content="12# count lines of code in current directorygrep -c -e &quot;$&quot; -r -h . | python -c &quot;import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));&quot;">
-<meta property="og:updated_time" content="2018-04-11T18:12:21.157Z">
+<meta property="og:description" content="12345# count lines of code in current directorygrep -c -e &quot;$&quot; -r -h . | python -c &quot;import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));&quot;NAME_PATTERN=&quot;*.cc&quot;find . -">
+<meta property="og:updated_time" content="2018-04-12T21:06:15.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Count Lines of Code">
-<meta name="twitter:description" content="12# count lines of code in current directorygrep -c -e &quot;$&quot; -r -h . | python -c &quot;import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));&quot;">
+<meta name="twitter:description" content="12345# count lines of code in current directorygrep -c -e &quot;$&quot; -r -h . | python -c &quot;import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));&quot;NAME_PATTERN=&quot;*.cc&quot;find . -">
   
     <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
   
@@ -85,12 +85,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># count lines of code in current directory</span></span><br><span class="line">grep -c -e <span class="string">"$"</span> -r -h . | python -c <span class="string">"import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));"</span></span><br></pre></td></tr></table></figure>
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># count lines of code in current directory</span></span><br><span class="line">grep -c -e <span class="string">"$"</span> -r -h . | python -c <span class="string">"import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));"</span></span><br><span class="line"></span><br><span class="line">NAME_PATTERN=<span class="string">"*.cc"</span></span><br><span class="line">find . -<span class="built_in">type</span> f  -name <span class="string">"<span class="variable">$&#123;NAME_PATTERN&#125;</span>"</span> -print0 |xargs -0 -n1 grep -c -e <span class="string">"$"</span> | python -c <span class="string">"import sys; a = sys.stdin.read().strip().split(); a = [int(x) for x in a]; print(sum(a));"</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/04/11/Count-Lines-of-Code/" data-id="cjfwznahg000cu56cr56rfdj8" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/04/11/Count-Lines-of-Code/" data-id="cjfx0krga000nyh6cvzfoqwio" class="article-share-link">Share</a>
       
       
     </footer>
