@@ -61,6 +61,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Android-Keystore-System-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/29/Android-Keystore-System-Notes/" class="article-date">
+  <time datetime="2017-03-30T01:52:34.000Z" itemprop="datePublished">2017-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/29/Android-Keystore-System-Notes/">Android Keystore System Notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Similar to KDEWallet</p>
+<h2 id="Security-Features"><a href="#Security-Features" class="headerlink" title="Security Features"></a>Security Features</h2><ul>
+<li>Once keys are in the keystore, they can be used for cryptographic operations with the key material remaining <strong>non-exportable</strong>. (extraction prevention)</li>
+<li>Moreover, it offers facilities to restrict <strong>when and how</strong> keys can be used, such as requiring user authentication for key use or restricting keys to be used only in certain cryptographic modes. (Key Use Authorizations)</li>
+</ul>
+<h3 id="Extraction-Prevention"><a href="#Extraction-Prevention" class="headerlink" title="Extraction Prevention"></a>Extraction Prevention</h3><p>The Keystore system is used by the KeyChain API as well as the Android Keystore provider feature.<br>Key material never enters the application process.<br>Key material may be bound to the secure hardware.</p>
+<h3 id="Key-Use-Authorizations"><a href="#Key-Use-Authorizations" class="headerlink" title="Key Use Authorizations"></a>Key Use Authorizations</h3><p>Android Keystore lets apps specify authorized uses of their keys when generating or importing the keys. Once a key is generated or imported, its authorizations can not be changed.</p>
+<p>Supported key use authorizations:  </p>
+<ul>
+<li>cryptography: authorized key algorithm, operations or purposes (encrypt, decrypt, sign, verify), padding schemes, block modes, digests with which the key can be used;</li>
+<li>temporal validity interval: interval of time during which the key is authorized for use;</li>
+<li>user authentication: the key can only be used if the user has been authenticated recently enough.</li>
+</ul>
+<h2 id="Keychain-vs-Keystore-Provider"><a href="#Keychain-vs-Keystore-Provider" class="headerlink" title="Keychain vs Keystore Provider"></a>Keychain vs Keystore Provider</h2><p>KeyChain: system-wide credentials, need users to choose which credential an app can access, allows several apps to use the same set of credentials with user consent.<br>Keystore provider: let an individual app store its own credentials that only the app itself can access, requires no user interaction to select the credentials.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://developer.android.com/training/articles/keystore.html" target="_blank" rel="noopener">Android Keystore System</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/29/Android-Keystore-System-Notes/" data-id="cjfwznah80003u56c2bjrpctw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Manage-Hexo-Blog-with-Git" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/29/Manage-Hexo-Blog-with-Git/" class="article-date">
@@ -88,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/29/Manage-Hexo-Blog-with-Git/" data-id="cjfohtu55001nqf6c3zrde9nr" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/29/Manage-Hexo-Blog-with-Git/" data-id="cjfwznaij002eu56c1c36dtuk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -128,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/29/Regex-Notes/" data-id="cjfohtu5a001zqf6ccqop0j5s" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/29/Regex-Notes/" data-id="cjfwznaip002nu56cc90am5jn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/">Regex</a></li></ul>
@@ -172,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/21/Markdown-Notes/" data-id="cjfohtu56001qqf6cx88hp95y" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/21/Markdown-Notes/" data-id="cjfwznaik002gu56cvdo0y63k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
@@ -213,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/21/Trusty-OS/" data-id="cjfohtu5e0029qf6ce4m22yf4" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/21/Trusty-OS/" data-id="cjfwznaiu002vu56ceoqyijgx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -260,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/03/21/hello-world/" data-id="cjfohtu5i002jqf6c1vl4hszq" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/03/21/hello-world/" data-id="cjfwznaj1003au56cr9u46lal" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -301,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2016/09/25/My-First-Post-with-hexo/" data-id="cjfohtu58001uqf6ct41wwsfn" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2016/09/25/My-First-Post-with-hexo/" data-id="cjfwznaim002ku56c4fqt98j8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -361,6 +414,10 @@
       <ul>
         
           <li>
+            <a href="/2018/04/11/Count-Lines-of-Code/">Count Lines of Code</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/06/jQuerify/">jQuerify</a>
           </li>
         
@@ -374,10 +431,6 @@
         
           <li>
             <a href="/2018/03/30/Increase-Open-File-Limit/">Increase Open File Limit</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/29/Clang-fsanitize-Notes/">Clang fsanitize Notes</a>
           </li>
         
       </ul>
