@@ -62,6 +62,162 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Android-Root-Note" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/18/Android-Root-Note/" class="article-date">
+  <time datetime="2017-05-18T21:33:08.000Z" itemprop="datePublished">2017-05-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/18/Android-Root-Note/">Android Root Note</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="How-Apps-Use-Root-Privilege"><a href="#How-Apps-Use-Root-Privilege" class="headerlink" title="How Apps Use Root Privilege"></a>How Apps Use Root Privilege</h3><p>Apps use the following code to gain root privilege. Basically, a new root shell process is created with <code>Runtime.getRuntime().exec(&quot;su&quot;)</code>. Then commands are sent to the new process through stdin.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">OutputStream stdin = <span class="keyword">null</span>;</span><br><span class="line">DataOutputStream os = <span class="keyword">null</span>;</span><br><span class="line">Process process = Runtime.getRuntime().exec(<span class="string">"su"</span>);</span><br><span class="line"></span><br><span class="line">stdin = process.getOutputStream();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    os = <span class="keyword">new</span> DataOutputStream(stdin);</span><br><span class="line">    os.writeBytes(<span class="string">"ls /data\n"</span>);</span><br><span class="line">    os.writeBytes(<span class="string">"exit\n"</span>);</span><br><span class="line">    os.flush();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    close(os);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="How-Root-is-Achieved"><a href="#How-Root-is-Achieved" class="headerlink" title="How Root is Achieved"></a>How Root is Achieved</h3><p>Since Apps use <strong>su</strong> to gain root privilege, we need a su binary with the following requirements:</p>
+<ul>
+<li>existing. su may not necessarily exist.</li>
+<li>chmod 4755. Apps should be able to execute su. The suid bit should have been set.</li>
+<li>selinux is off. root can turn off selinux with the cmd <code>setenforce 0</code>.</li>
+<li>Disable the uid check for the su from AOSP. The su source code in AOSP contains the following check. Apps cannot pass this check.<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (current_uid != AID_ROOT &amp;&amp; current_uid != AID_SHELL) error(<span class="number">1</span>, <span class="number">0</span>, <span class="string">"not allowed"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Even if the su meets the above requirements, it’s still possible that su doen’t work for Apps. For example, /system maybe mounted as nosuid for Apps. To bypass SELinux and other limitations, some su solutions start a root sudaemon at boot up time. When Apps execute /system/xbin/su, /system/xbin/su accepts the commands and forwards them to the sudaemon.</p>
+<h3 id="How-to-Root-an-Emulator-Device-with-eng-Build-works-on-Nougat"><a href="#How-to-Root-an-Emulator-Device-with-eng-Build-works-on-Nougat" class="headerlink" title="How to Root an Emulator/Device with eng Build (works on Nougat)"></a>How to Root an Emulator/Device with eng Build (works on Nougat)</h3><ul>
+<li>Download <a href="http://www.supersu.com/download" target="_blank" rel="noopener">SuperSu ZIP format</a></li>
+<li>Start up the emulator with a writable system partition.<br><code>emulator -avd [emulator_name] -writable-system</code></li>
+<li><p>Unzip SuperSU. Get the SU related binaries for the correct architecture and put it in the right directory</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb remount</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su /system/xbin/su <span class="comment"># may need su.pie, adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su.pie /system/xbin/su</span></span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/supolicy /system/xbin</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/libsupol.so /system/lib</span><br><span class="line">adb shell chmod 06755 /system/xbin/su</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Start the su daemon</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell /system/xbin/su --init</span><br><span class="line">adb shell /system/xbin/su --daemon</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Turn off SELinux</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell setenforce 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Install SuperSu App</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb install &#123;supsersu_path&#125;/common/Superuser.apk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Open SuperSu App</p>
+<ul>
+<li>If it complains about that the device is not rooted, you may have missed some previous steps. Check and do it again.</li>
+<li>If it complains about outdated su binary, you can ignore it. <strong>If you accept to update the su binary, it is possible that your device can NOT boot up.</strong> If you decline to update the su binary, you need to turn off selinux every time you reboot the device.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://infosectrek.wordpress.com/2017/03/06/rooting-the-android-emulator/" target="_blank" rel="noopener">Rooting the Android Emulator – on Android Studio 2.3 (Android 4.4+)</a><br><a href="http://www.imooc.com/learn/126" target="_blank" rel="noopener">Android系统Root原理初探</a><br><a href="http://www.imooc.com/learn/153" target="_blank" rel="noopener">Android高级Root技术原理解析</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cjj4ma998000f4j6c7ayr67ss" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Automatically-Turn-on-NumLock-for-Ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" class="article-date">
+  <time datetime="2017-05-08T07:23:40.000Z" itemprop="datePublished">2017-05-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/">Automatically Turn on NumLock for Ubuntu</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>First install numlockx</p>
+<p><code>$ sudo apt-get install numlockx</code></p>
+<p>Method 1<br><code>$ sudo vim /etc/rc.local</code><br>Add the following content before <code>exit 0</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [-x /usr/bin/numlockx ]; <span class="keyword">then</span></span><br><span class="line">numlockx on</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>Method 2<br><code>$ sudo vim /usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</code><br>Add <code>greeter-setup-script=/usr/bin/numlockx on</code> at the end.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" data-id="cjj4ma996000d4j6c8jihdazv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ohmyzsh-Configuration" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/27/ohmyzsh-Configuration/" class="article-date">
+  <time datetime="2017-04-27T09:00:16.000Z" itemprop="datePublished">2017-04-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/27/ohmyzsh-Configuration/">OhMyZsh Configuration</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Install-zsh"><a href="#Install-zsh" class="headerlink" title="Install zsh"></a>Install zsh</h2><p><code>sudo apt-get install zsh</code></p>
+<h2 id="Install-ohmyzsh"><a href="#Install-ohmyzsh" class="headerlink" title="Install ohmyzsh"></a>Install ohmyzsh</h2><p><code>sh -c &quot;$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code></p>
+<h2 id="Install-autojump"><a href="#Install-autojump" class="headerlink" title="Install autojump"></a>Install autojump</h2><p><code>sudo apt-get install autojump</code></p>
+<h2 id="Enable-Plugins"><a href="#Enable-Plugins" class="headerlink" title="Enable Plugins"></a>Enable Plugins</h2><p>Modify .zshrc<br><code>plugins=(git ssh-agent autojump jump)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/04/27/ohmyzsh-Configuration/" data-id="cjj4ma9aw002v4j6cpyt51qyb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Use-Ctrl-Shift-to-Turn-on-off-IME-for-Windows-8-10" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/04/27/Use-Ctrl-Shift-to-Turn-on-off-IME-for-Windows-8-10/" class="article-date">
@@ -89,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/27/Use-Ctrl-Shift-to-Turn-on-off-IME-for-Windows-8-10/" data-id="cjgbekpas002f2j6cte9q1iae" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/27/Use-Ctrl-Shift-to-Turn-on-off-IME-for-Windows-8-10/" data-id="cjj4ma9aq002m4j6cyum4mne8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
@@ -131,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/25/Cygwin-Configuration/" data-id="cjgbekp9u000m2j6c7r5aa0k3" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/25/Cygwin-Configuration/" data-id="cjj4ma99g000r4j6c2itlajyv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cygwin/">Cygwin</a></li></ul>
@@ -182,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/23/Sublime-Text-Good-Plugins/" data-id="cjgbekpao00292j6czza0zu88" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/23/Sublime-Text-Good-Plugins/" data-id="cjj4ma9al002d4j6cgttg4r5v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/">SublimeText</a></li></ul>
@@ -222,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/Fix-Hexo-Display-Errors/" data-id="cjgbekp9x000t2j6cxcu5qspc" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/Fix-Hexo-Display-Errors/" data-id="cjj4ma99r00134j6c41vw7a97" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -267,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/ADB-Notes/" data-id="cjgbekp9f00032j6ck7jecvzq" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/ADB-Notes/" data-id="cjj4ma97x00014j6cmjjobkgk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ADB/">ADB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -316,7 +472,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/07/Cannot-Open-File-in-Assets-Error/" data-id="cjgbekp9m000c2j6cr0cznps6" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/07/Cannot-Open-File-in-Assets-Error/" data-id="cjj4ma999000g4j6c097upyxy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
@@ -354,7 +510,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Add-An-Android-Service/" data-id="cjgbekp9800002j6cqsymhcz8" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2017/04/06/Add-An-Android-Service/" data-id="cjj4ma97t00004j6cznb9fn6z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TODO/">TODO</a></li></ul>
@@ -366,134 +522,10 @@
 
 
   
-    <article id="post-Generate-Public-Private-Key-Pairs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/06/Generate-Public-Private-Key-Pairs/" class="article-date">
-  <time datetime="2017-04-07T01:03:21.000Z" itemprop="datePublished">2017-04-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/06/Generate-Public-Private-Key-Pairs/">Generate Public/Private Key Pairs</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Become-a-Certificate-Authority-CA"><a href="#Become-a-Certificate-Authority-CA" class="headerlink" title="Become a Certificate Authority (CA)"></a>Become a Certificate Authority (CA)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cp /usr/lib/ssl/openssl.cnf ./</span><br><span class="line">$ mkdir -p ./demoCA/certs ./demoCA/crl ./demoCA/newcerts</span><br><span class="line">$ touch ./demoCA/index.txt</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"1000"</span> &gt; ./demoCA/serial</span><br><span class="line">$ openssl req -new -x509 -keyout ca.key -out ca.crt -config openssl.cnf</span><br></pre></td></tr></table></figure>
-<p>Open openssl.cnf and change “policy = policy_match” to “policy = policy_anything”</p>
-<h2 id="Create-a-Certificate"><a href="#Create-a-Certificate" class="headerlink" title="Create a Certificate"></a>Create a Certificate</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># Generate public/private key pair</span></span><br><span class="line">$ openssl genrsa -aes128 -out server.key 1024</span><br><span class="line">$ <span class="comment"># show content</span></span><br><span class="line">$ openssl rsa -<span class="keyword">in</span> server.key -text</span><br><span class="line">$ <span class="comment"># Generate a Certificate Signing Request (CSR)</span></span><br><span class="line">$ openssl req -new -key server.key -out server.csr -config openssl.cnf</span><br><span class="line">$ <span class="comment"># Generating Certificates</span></span><br><span class="line">$ openssl ca -<span class="keyword">in</span> server.csr -out server.crt -cert ca.crt -keyfile ca.key -config openssl.cnf</span><br></pre></td></tr></table></figure>
-<h2 id="Create-Digital-Signature"><a href="#Create-Digital-Signature" class="headerlink" title="Create Digital Signature"></a>Create Digital Signature</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># prepare the file to sign</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"Hello, world!"</span> &gt; in.txt</span><br><span class="line">$ <span class="comment"># extract public key</span></span><br><span class="line">$ openssl rsa -<span class="keyword">in</span> server.key -pubout &gt; server.pub</span><br><span class="line">$ <span class="comment"># generate signature with private key</span></span><br><span class="line">$ openssl dgst -sha256 -sign server.key -out in.txt.sha256 in.txt</span><br><span class="line">$ <span class="comment"># verify the signature with public key</span></span><br><span class="line">$ openssl dgst -sha256 -verify server.pub -signature in.txt.sha256 in.txt</span><br></pre></td></tr></table></figure>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Crypto/Crypto_PublicKey/Crypto_PublicKey.pdf" target="_blank" rel="noopener">Crypto Lab – Public-Key Cryptography and PKI</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Generate-Public-Private-Key-Pairs/" data-id="cjgbekp9z000x2j6ci58i30la" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cryptography/">Cryptography</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Using-Android-KeyChain" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/06/Using-Android-KeyChain/" class="article-date">
-  <time datetime="2017-04-07T01:03:07.000Z" itemprop="datePublished">2017-04-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/06/Using-Android-KeyChain/">Using Android KeyChain</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * This method will launch an intent to install the key chain</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String PKCS12_FILENAME = <span class="string">"keychain.p12"</span>; </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_ALIAS = <span class="string">"My Key Chain"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INSTALL_KEYCHAIN_CODE = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">installPkcs12</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// prepare a PKCS12 format file with filename *.p12 or *.pfx</span></span><br><span class="line">        BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(getAssets().open(</span><br><span class="line">                PKCS12_FILENAME));</span><br><span class="line">        <span class="keyword">byte</span>[] keychain = <span class="keyword">new</span> <span class="keyword">byte</span>[bis.available()];</span><br><span class="line">        bis.read(keychain);</span><br><span class="line"></span><br><span class="line">        Intent installIntent = KeyChain.createInstallIntent();</span><br><span class="line">        installIntent.putExtra(KeyChain.EXTRA_PKCS12, keychain);</span><br><span class="line">        installIntent.putExtra(KeyChain.EXTRA_NAME, DEFAULT_ALIAS);</span><br><span class="line">        startActivityForResult(installIntent, INSTALL_KEYCHAIN_CODE);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (requestCode == INSTALL_KEYCHAIN_CODE) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (resultCode) &#123;</span><br><span class="line">            <span class="keyword">case</span> Activity.RESULT_OK:</span><br><span class="line">                chooseCert();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">super</span>.onActivityResult(requestCode, resultCode, data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">chooseCert</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    KeyChain.choosePrivateKeyAlias(<span class="keyword">this</span>, <span class="keyword">this</span>, <span class="comment">// Callback</span></span><br><span class="line">            <span class="keyword">new</span> String[] &#123;&#125;, <span class="comment">// Any key types.</span></span><br><span class="line">            <span class="keyword">null</span>, <span class="comment">// Any issuers.</span></span><br><span class="line">            <span class="string">"localhost"</span>, <span class="comment">// Any host</span></span><br><span class="line">            -<span class="number">1</span>, <span class="comment">// Any port</span></span><br><span class="line">            DEFAULT_ALIAS);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * This implements the KeyChainAliasCallback</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">alias</span><span class="params">(String alias)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// callback to get the alias set by the user</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="https://github.com/Miserlou/Android-SDK-Samples/tree/master/KeyChainDemo" target="_blank" rel="noopener">Android SDK KeyChainDemo</a><br><a href="https://developer.android.com/reference/android/security/KeyChain.html" target="_blank" rel="noopener">Android KeyChain</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/06/Using-Android-KeyChain/" data-id="cjgbekpat002h2j6crnectwwd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android-KeyStore-Notes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/04/Android-KeyStore-Notes/" class="article-date">
-  <time datetime="2017-04-05T02:09:40.000Z" itemprop="datePublished">2017-04-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/04/Android-KeyStore-Notes/">Android KeyStore Notes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Create-PrivateKey-PublicCertificate-Pair"><a href="#Create-PrivateKey-PublicCertificate-Pair" class="headerlink" title="Create PrivateKey/PublicCertificate Pair"></a>Create PrivateKey/PublicCertificate Pair</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createNewKeys</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">    String alias = aliasText.getText().toString();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// Create new key if needed</span></span><br><span class="line">        <span class="keyword">if</span> (!keyStore.containsAlias(alias)) &#123;</span><br><span class="line">            Calendar start = Calendar.getInstance();</span><br><span class="line">            Calendar end = Calendar.getInstance();</span><br><span class="line">            end.add(Calendar.YEAR, <span class="number">1</span>);</span><br><span class="line">            KeyPairGeneratorSpec spec = <span class="keyword">new</span> KeyPairGeneratorSpec.Builder(<span class="keyword">this</span>)</span><br><span class="line">                    .setAlias(alias)</span><br><span class="line">                    .setSubject(<span class="keyword">new</span> X500Principal(<span class="string">"CN=Sample Name, O=Android Authority"</span>))</span><br><span class="line">                    .setSerialNumber(BigInteger.ONE)</span><br><span class="line">                    .setStartDate(start.getTime())</span><br><span class="line">                    .setEndDate(end.getTime())</span><br><span class="line">                    .build();</span><br><span class="line">            KeyPairGenerator generator = KeyPairGenerator.getInstance(<span class="string">"RSA"</span>, <span class="string">"AndroidKeyStore"</span>);</span><br><span class="line">            generator.initialize(spec);</span><br><span class="line">            KeyPair keyPair = generator.generateKeyPair();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"Exception "</span> + e.getMessage() + <span class="string">" occured"</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">    refreshKeys();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Import-PrivateKey-PublicCertificate-Pair"><a href="#Import-PrivateKey-PublicCertificate-Pair" class="headerlink" title="Import PrivateKey/PublicCertificate Pair"></a>Import PrivateKey/PublicCertificate Pair</h3><p>The private key <strong>cannot be encrypted.</strong><br>The password parameter of setKeyEntry <strong>has to be null.</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The key/certificate are the content between BEGIN and END in pem format</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">private</span> String PRIVATE_KEY = <span class="string">"MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCadLCqO4yNjdpZz26sTPXLx6JcgtNibHHldL//xRwZyYqX6udIbOH6Poau/niWEGeupBjN5qnCeDWTjNDBHGm+H+Se62V7PVH93O8bPRRoDzg4xZWrPhbDIZ6DlSvPh9/JakegNl4Nx7L9GVFbXYmFyqv6gziFjEbIGRBz9vW2QdbjxnmhnkiMobzI0Pxx/GMt1QZ92ezlsXUerECejVFStfr8SDlfZvKljIoVOJfZBBdTPh9zEi455dka+bPRv6w1v2SppNppC1jCargNcZ1dLr9ERKEh6hYdNP+qnRTeFZTAxIxiocRy0jvpvNs7bVP1PogOnK0ggl0khU9bontdAgMBAAECggEAUcVFYlp0ZtyapMF0zjNQTbo68s8wKgNPqTLOExK/dceFYDg0idtbJ6jClRKTtJ6qxYKKvzdG2HXbp2n9er8YHFe2KYxmBYDJT6UP0VPc4dps4WF5g1czpcq+qNrofs5oY7GoieE+mf0HfYdR0xUKIZLSyaV+3vUM5BKg60Prgbk3BcC79wDt/WlNT23vZrLop3KuW611v8DSMA73nHclWSh9kVcEcgctc3idprFfAjlF1pWybIHSgkOBd8XIJ94SBsMKqGKF5MRv2doRttUHz2kCw+MvdLRXm7ry/CzAqEwYL/KUMUrnzVN5JNllyB/Z/nZSIu8C0vsmPMWfCRIb4QKBgQDIChs4vKORSU8f2QXphTufD0EdtJJsM37AjJxhBM4EKQBreE0Ci0LBXlbdrodTE5JsjvNyL8S5jNOt79xwLq8/cpaBRXPoRkCNKckPQMlFWF4bFUjRAXSTuc0daF/4zqH8AJu4nLiBDm+ytrQlHDi/f6lLUO/2DgfT/rbx7gEg3wKBgQDFqhhSmr8P0NDK6c6+AoRTxhJcfcFxIi7Llad1CBPuxsvDn3Q8XpeI+QNfygrFPxi2g6GOnJQ8guGe9IUX2zY/RqJqEM6Pgc7zv0etCvC4jd6dW/ox0Td/ymOVltOIofsAQQ3SRNNqSgjin3KlOpyCw38J6NCevQXFeU0CPcA/QwKBgHGYS50MglYeqzAKrbDOV+0bXH7h68RF+dSeBK+Tauox3mspBZJMQrxMNkfstCwZES1UgCp3td8oeYxsiWGrIRmGmLEQH6HnQwDmmaZvw9v9MnNuwsrtaKX6/N+WRemkbZgNQGC1npCrAgMafXIVdKRKeniqnZm8nfVkz77SyRFBAoGBALr/H+OF4hrkQaK1bpDzcJyQVe6KSebtn7eZ7MIa0kCicUKwJxa1pkY+zaJhUa8o8gg4ny57kwFsEGaAjSj0iW1zNVOCcufwtgiCfRyHrRProx7bVOasNwT+QxfRiG1KUFr9MEYsNpXnVGCQ17TYrhhHOnf1eOezizI2f1QPd0BhAoGBAIDTegY9P1e1fzPALn9puHElapUXlXwZfiT9J1C6GkYywYwrXDkYXKXb+mvNIbL8YxKZ0ONecVxcmd693yh33VSGIngOvmGNhRmkY8EpTc2MsZXtu3Yej1Nn/q3y7X0+XWJ5YI3A1dCILjdfXAIlwb6wDIyxich8sgBEiEJotI1Y"</span>;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">private</span> String UNSIGNED_CERT = <span class="string">"MIID7TCCAtWgAwIBAgIJAKvJ99aAhppSMA0GCSqGSIb3DQEBCwUAMIGMMQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExFjAUBgNVBAcMDU1vdW50YWluIFZpZXcxETAPBgNVBAoMCFNlbGZ0ZXN0MRQwEgYDVQQLDAtTZWN0aW9uU2VsZjERMA8GA1UEAwwIdGVzdC5uZXQxHDAaBgkqhkiG9w0BCQEWDXRlc3RAdGVzdC5uZXQwHhcNMTcwNDA0MDE1NTEyWhcNMTcwNTA0MDE1NTEyWjCBjDELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAkNBMRYwFAYDVQQHDA1Nb3VudGFpbiBWaWV3MREwDwYDVQQKDAhTZWxmdGVzdDEUMBIGA1UECwwLU2VjdGlvblNlbGYxETAPBgNVBAMMCHRlc3QubmV0MRwwGgYJKoZIhvcNAQkBFg10ZXN0QHRlc3QubmV0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmnSwqjuMjY3aWc9urEz1y8eiXILTYmxx5XS//8UcGcmKl+rnSGzh+j6Grv54lhBnrqQYzeapwng1k4zQwRxpvh/knutlez1R/dzvGz0UaA84OMWVqz4WwyGeg5Urz4ffyWpHoDZeDcey/RlRW12Jhcqr+oM4hYxGyBkQc/b1tkHW48Z5oZ5IjKG8yND8cfxjLdUGfdns5bF1HqxAno1RUrX6/Eg5X2bypYyKFTiX2QQXUz4fcxIuOeXZGvmz0b+sNb9kqaTaaQtYwmq4DXGdXS6/REShIeoWHTT/qp0U3hWUwMSMYqHEctI76bzbO21T9T6IDpytIIJdJIVPW6J7XQIDAQABo1AwTjAdBgNVHQ4EFgQUgQkNHWSC8zCUG5VvNK6+V0saxDYwHwYDVR0jBBgwFoAUgQkNHWSC8zCUG5VvNK6+V0saxDYwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAEHLEHBjmGbmE3CFtfStEHcvG1LIG8B96gBHKBY28XbdGQoxlZWlIfdsCjB80XP7S0Ku701N/Keh0kjDcEHp/TbOERwy4Icq/RdDnEj6Lbbc1I/c5w4mRu4KZPOpmdfeOPFBb2iFCpXw8iHUPCTnyQhkkL+kSy2bKxnrwj+MeRBudRhjdSWi3ZUKvxmC2LW4pMua9Y9MWANpl6/h9wLGRcicAmwZoUnHvLno9ccNc5DVq1Cbb73rpG1aMXoRdrcJqHmXMKC9g1cAKSuPfHgLASKKfVoLszv661r2yOI4MmiZKQhUHkbvt54F80P/t8AXpUTLDQ5btiQiUSF+IeoUQPg=="</span>;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">private</span> String SIGNED_CERT = <span class="string">"MIID+zCCAuOgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwgY8xCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEWMBQGA1UEBwwNTW91bnRhaW4gVmlldzEUMBIGA1UECgwLU2Ftc3VuZ1Rlc3QxFDASBgNVBAsMC1NlY3Rpb25UZXN0MREwDwYDVQQDDAh0ZXN0Lm9yZzEcMBoGCSqGSIb3DQEJARYNdGVzdEB0ZXN0Lm9yZzAeFw0xNzA0MDQwMjAwNDRaFw0xODA0MDQwMjAwNDRaMHQxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEPMA0GA1UECgwGU2VsZkNBMRYwFAYDVQQLDA1TZWN0aW9uU2VsZkNBMREwDwYDVQQDDAh0ZXN0Lm5ldDEcMBoGCSqGSIb3DQEJARYNdGVzdEB0ZXN0Lm5ldDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJp0sKo7jI2N2lnPbqxM9cvHolyC02JsceV0v//FHBnJipfq50hs4fo+hq7+eJYQZ66kGM3mqcJ4NZOM0MEcab4f5J7rZXs9Uf3c7xs9FGgPODjFlas+FsMhnoOVK8+H38lqR6A2Xg3Hsv0ZUVtdiYXKq/qDOIWMRsgZEHP29bZB1uPGeaGeSIyhvMjQ/HH8Yy3VBn3Z7OWxdR6sQJ6NUVK1+vxIOV9m8qWMihU4l9kEF1M+H3MSLjnl2Rr5s9G/rDW/ZKmk2mkLWMJquA1xnV0uv0REoSHqFh00/6qdFN4VlMDEjGKhxHLSO+m82zttU/U+iA6crSCCXSSFT1uie10CAwEAAaN7MHkwCQYDVR0TBAIwADAsBglghkgBhvhCAQ0EHxYdT3BlblNTTCBHZW5lcmF0ZWQgQ2VydGlmaWNhdGUwHQYDVR0OBBYEFIEJDR1kgvMwlBuVbzSuvldLGsQ2MB8GA1UdIwQYMBaAFODmZfUgqfPNVJEhF0ekF9Qh6La2MA0GCSqGSIb3DQEBCwUAA4IBAQBGnlZqIhC9l3wWYlO8AJ4toLbQnymkoknzOfMLCRCCHLtp0y23twb/Qp5D0D1bHb7VOKByqeiLCu3CFb8/nHAElqbcoFkmEvFv5QdxKefzRDCgj8KyR+teyJjekXHuaqZSPL1nETlvP+mRkEP4QGb1mvdmjZs3cMcIFJxD6MygEhIeJeUu2VyPAriVvt5Wk/4PEdJ6/ft5zSZyiCCI6nPyrPjixonDqnCmapbiYYqhGCRgaF02f3nQ61/T9KiZO8+nrh0tIKpjKz3A+qQgnF0kSjSW1MGZnHw2zxzk3AjSPCvXUvoCJKBj5Wgd1TFHzJaegaBDW9OSmJPiZgMZgyNO"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">installPrivateKeyPair</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        PrivateKey privateKey = <span class="keyword">null</span>;</span><br><span class="line">        Certificate[]chain = &#123;<span class="keyword">null</span>&#125;;</span><br><span class="line">        KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">        privateKey = keyFactory.generatePrivate(<span class="keyword">new</span> PKCS8EncodedKeySpec(Base64.decode(PRIVATE_KEY, Base64.DEFAULT)));</span><br><span class="line"></span><br><span class="line">        CertificateFactory certFactory = CertificateFactory.getInstance(<span class="string">"X.509"</span>);</span><br><span class="line">        chain[<span class="number">0</span>] = certFactory.generateCertificate(<span class="keyword">new</span> ByteArrayInputStream(Base64.decode(UNSIGNED_CERT, Base64.DEFAULT)));</span><br><span class="line">        keyStore.setKeyEntry(<span class="string">"testAlias"</span>, privateKey, <span class="keyword">null</span>, chain);</span><br><span class="line">        refreshKeys();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"Exception "</span> + e.getMessage() + <span class="string">" occured"</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// overwrite the unsigned certificate with the signed one, the private key remains the same</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">installSignedCert</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        PrivateKey privateKey = <span class="keyword">null</span>;</span><br><span class="line">        Certificate[]chain = &#123;<span class="keyword">null</span>&#125;;</span><br><span class="line">        privateKey = (PrivateKey) keyStore.getKey(<span class="string">"testAlias"</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">        CertificateFactory certFactory = CertificateFactory.getInstance(<span class="string">"X.509"</span>);</span><br><span class="line">        chain[<span class="number">0</span>] = certFactory.generateCertificate(<span class="keyword">new</span> ByteArrayInputStream(Base64.decode(SIGNED_CERT, Base64.DEFAULT)));</span><br><span class="line"></span><br><span class="line">        keyStore.setKeyEntry(<span class="string">"testAlias"</span>, privateKey, <span class="keyword">null</span>, chain);</span><br><span class="line">        refreshKeys();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"Exception "</span> + e.getMessage() + <span class="string">" occured"</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="Encrypt"><a href="#Encrypt" class="headerlink" title="Encrypt"></a>Encrypt</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encryptString</span><span class="params">(String alias)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry)keyStore.getEntry(alias, <span class="keyword">null</span>);</span><br><span class="line">        RSAPublicKey publicKey = (RSAPublicKey) privateKeyEntry.getCertificate().getPublicKey();</span><br><span class="line"></span><br><span class="line">        String initialText = startText.getText().toString();</span><br><span class="line">        <span class="keyword">if</span>(initialText.isEmpty()) &#123;</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>, <span class="string">"Enter text in the 'Initial Text' widget"</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Cipher inCipher = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>);</span><br><span class="line">        inCipher.init(Cipher.ENCRYPT_MODE, publicKey);</span><br><span class="line"></span><br><span class="line">        ByteArrayOutputStream outputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        CipherOutputStream cipherOutputStream = <span class="keyword">new</span> CipherOutputStream(</span><br><span class="line">                outputStream, inCipher);</span><br><span class="line">        cipherOutputStream.write(initialText.getBytes(<span class="string">"UTF-8"</span>));</span><br><span class="line">        cipherOutputStream.close();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">byte</span> [] vals = outputStream.toByteArray();</span><br><span class="line">        encryptedText.setText(Base64.encodeToString(vals, Base64.DEFAULT));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"Exception "</span> + e.getMessage() + <span class="string">" occured"</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Decrypt"><a href="#Decrypt" class="headerlink" title="Decrypt"></a>Decrypt</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">decryptString</span><span class="params">(String alias)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry)keyStore.getEntry(alias, <span class="keyword">null</span>);</span><br><span class="line">        PrivateKey privateKey =  privateKeyEntry.getPrivateKey();</span><br><span class="line"></span><br><span class="line">        Cipher output = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>);</span><br><span class="line">        output.init(Cipher.DECRYPT_MODE, privateKey);</span><br><span class="line"></span><br><span class="line">        String cipherText = encryptedText.getText().toString();</span><br><span class="line">        CipherInputStream cipherInputStream = <span class="keyword">new</span> CipherInputStream(</span><br><span class="line">                <span class="keyword">new</span> ByteArrayInputStream(Base64.decode(cipherText, Base64.DEFAULT)), output);</span><br><span class="line">        ArrayList&lt;Byte&gt; values = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> nextByte;</span><br><span class="line">        <span class="keyword">while</span> ((nextByte = cipherInputStream.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">            values.add((<span class="keyword">byte</span>)nextByte);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[values.size()];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bytes.length; i++) &#123;</span><br><span class="line">            bytes[i] = values.get(i).byteValue();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String finalText = <span class="keyword">new</span> String(bytes, <span class="number">0</span>, bytes.length, <span class="string">"UTF-8"</span>);</span><br><span class="line">        decryptedText.setText(finalText);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"Exception "</span> + e.getMessage() + <span class="string">" occured"</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://github.com/obaro/SimpleKeystoreApp" target="_blank" rel="noopener">Simple Android app showing how to use the Android Keystore to create, retrieve and delete Public/Private keypairs</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2017/04/04/Android-KeyStore-Notes/" data-id="cjgbekp9c00012j6cln7miis1" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KeyStore/">KeyStore</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
   </nav>
 </section>
         
@@ -506,7 +538,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mosh/">mosh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
     </div>
   </div>
 
@@ -516,7 +548,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 12px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 12px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 12px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mosh/" style="font-size: 10px;">mosh</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/tmux/" style="font-size: 10px;">tmux</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
     </div>
   </div>
 
@@ -525,7 +557,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
     </div>
   </div>
 
@@ -538,23 +570,23 @@
       <ul>
         
           <li>
+            <a href="/2018/07/02/Ubuntu-Software-Dependencies/">Ubuntu Software Dependencies</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/02/Assign-Static-IP-for-VMware-Fusion/">Assign Static IP for VMware Fusion</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/23/tmux-with-mosh/">tmux with mosh</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/22/Git-Rebase/">Git Rebase</a>
           </li>
         
           <li>
             <a href="/2018/04/14/Good-Terminal-Tools/">Good Terminal Tools</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/11/Count-Lines-of-Code/">Count Lines of Code</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/06/jQuerify/">jQuerify</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/02/Matlab-Octave-Notes/">Matlab/Octave Notes</a>
           </li>
         
       </ul>

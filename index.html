@@ -62,6 +62,144 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Ubuntu-Software-Dependencies" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/02/Ubuntu-Software-Dependencies/" class="article-date">
+  <time datetime="2018-07-02T18:40:00.000Z" itemprop="datePublished">2018-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/02/Ubuntu-Software-Dependencies/">Ubuntu Software Dependencies</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="mosh"><a href="#mosh" class="headerlink" title="mosh"></a>mosh</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install automake protobuf-compiler zlib1g-dev libssl-dev libprotobuf-dev</span><br></pre></td></tr></table></figure>
+<h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install automake libncurses5-dev libevent-dev</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2018/07/02/Ubuntu-Software-Dependencies/" data-id="cjj4ma9ao002h4j6crn0l3s4k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Assign-Static-IP-for-VMware-Fusion" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/02/Assign-Static-IP-for-VMware-Fusion/" class="article-date">
+  <time datetime="2018-07-02T08:11:18.000Z" itemprop="datePublished">2018-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/02/Assign-Static-IP-for-VMware-Fusion/">Assign Static IP for VMware Fusion</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /Library/Preferences/VMware\ Fusion/vmnet8/dhcpd.conf</span><br></pre></td></tr></table></figure>
+<p>Add the follwing settings <strong>outside</strong> the “DO NOT MODIFY SECTION”.<br>Be careful: </p>
+<ul>
+<li>the “LinuxMint” must match the name of the virtual machine and contain no space.</li>
+<li>the MAC address must match the MAC address of the net card</li>
+<li>the fixed-address should be outside the range in the “DO NOT MODIFY SECTION”, e.g. 172.16.214.100 (range 172.16.214.128 172.16.214.254)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">host LinuxMint &#123;</span><br><span class="line">    hardware ethernet 00:0C:29:B6:22:3E;</span><br><span class="line">    fixed-address 172.16.214.100;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Shutdown the virtual machine and execute the following commands<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo /Applications/VMware\ Fusion.app/Contents/Library/services/services.sh --stop</span><br><span class="line">sudo /Applications/VMware\ Fusion.app/Contents/Library/services/services.sh --start</span><br></pre></td></tr></table></figure></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://willwarren.com/2015/04/02/set-static-ip-address-in-vmware-fusion-7/" target="_blank" rel="noopener">Set a Static IP Address in VMware Fusion 7</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2018/07/02/Assign-Static-IP-for-VMware-Fusion/" data-id="cjj4ma994000b4j6cix6ukiwc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VMware/">VMware</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-tmux-with-mosh" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/23/tmux-with-mosh/" class="article-date">
+  <time datetime="2018-05-24T06:39:25.000Z" itemprop="datePublished">2018-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/23/tmux-with-mosh/">tmux with mosh</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>Terminal emulator supporting OSC52<ul>
+<li>iTerm2, Preference -&gt; General -&gt; Applications in terminal may access clipboard</li>
+<li>mlterm, –osc52=true</li>
+</ul>
+</li>
+<li>latest mosh from git (tagged releases are too old, both client and server)</li>
+<li>latest tmux</li>
+<li>Override the OSC 52 sequence generated by tmux by adding the following line to your tmux.conf<ul>
+<li><code>set-option -ag terminal-overrides &quot;,xterm-256color:Ms=\\E]52;c;%p2%s\\7&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://gist.github.com/yudai/95b20e3da66df1b066531997f982b57b" target="_blank" rel="noopener">tmux + mosh OSC 52 clipboard paste hack</a><br><a href="https://medium.freecodecamp.org/tmux-in-practice-integration-with-system-clipboard-bcd72c62ff7b" target="_blank" rel="noopener">tmux in practice: integration with the system clipboard</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2018/05/23/tmux-with-mosh/" data-id="cjj4ma9b000304j6csnln676v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mosh/">mosh</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tmux/">tmux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Git-Rebase" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/22/Git-Rebase/" class="article-date">
@@ -89,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/04/22/Git-Rebase/" data-id="cjgbekpa0000z2j6c0rt8xwmk" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/04/22/Git-Rebase/" data-id="cjj4ma9ac001x4j6cayq3ih6b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -128,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/04/14/Good-Terminal-Tools/" data-id="cjgbekpa100102j6cez69pp7y" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/04/14/Good-Terminal-Tools/" data-id="cjj4ma9b100334j6cweclr473" class="article-share-link">Share</a>
       
       
     </footer>
@@ -165,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/04/11/Count-Lines-of-Code/" data-id="cjgbekp9t000l2j6c83k5fsjb" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/04/11/Count-Lines-of-Code/" data-id="cjj4ma99f000p4j6cqr2b47d7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +340,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/04/06/jQuerify/" data-id="cjgbekpay002p2j6c4nmphivt" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/04/06/jQuerify/" data-id="cjj4ma9av002t4j6c589qi3z2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -243,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/04/02/Matlab-Octave-Notes/" data-id="cjgbekpah001x2j6cy1o4q85r" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/04/02/Matlab-Octave-Notes/" data-id="cjj4ma9ad001z4j6cuvea1c8q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matlab/">Matlab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Octave/">Octave</a></li></ul>
@@ -285,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/04/02/xargs-Notes/" data-id="cjgbekpb1002u2j6cykq21ug3" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/04/02/xargs-Notes/" data-id="cjj4ma9bk00434j6cdz8rulmq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
@@ -325,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/30/Increase-Open-File-Limit/" data-id="cjgbekpab001i2j6cnyr4jfu1" class="article-share-link">Share</a>
+      <a data-url="http://rdzhou.github.io/2018/03/30/Increase-Open-File-Limit/" data-id="cjj4ma9a3001k4j6cp2gd5e5z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
@@ -337,134 +475,10 @@
 
 
   
-    <article id="post-Clang-fsanitize-Notes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/29/Clang-fsanitize-Notes/" class="article-date">
-  <time datetime="2018-03-30T00:06:14.000Z" itemprop="datePublished">2018-03-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/29/Clang-fsanitize-Notes/">Clang fsanitize Notes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><code>-fsanitize=xxx</code> should be added to the command line for both <strong>compiling</strong> and <strong>linking</strong></li>
-<li>clang can be used to <strong>compile</strong> cpp files. However, clang++ must be used to <strong>link</strong> for cpp programs.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang -fsanitize=undefined -c -o test.o test.cpp</span><br><span class="line">clang++ -fsanitize=undefined -o <span class="built_in">test</span> test.o</span><br></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html" target="_blank" rel="noopener">Clang 7 documentation - UndefinedBehaviorSanitizer</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/29/Clang-fsanitize-Notes/" data-id="cjgbekp9q000g2j6c240zau4s" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clang/">clang</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-VMware-open-vm-tools" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/27/VMware-open-vm-tools/" class="article-date">
-  <time datetime="2018-03-28T02:15:13.000Z" itemprop="datePublished">2018-03-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/27/VMware-open-vm-tools/">VMware open-vm-tools</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get -y install open-vm-tools open-vm-tools-desktop</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/27/VMware-open-vm-tools/" data-id="cjgbekpav002k2j6c7laj2nmg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VMware/">VMware</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Set-Docker-Window-Size" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/23/Set-Docker-Window-Size/" class="article-date">
-  <time datetime="2018-03-24T00:17:47.000Z" itemprop="datePublished">2018-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/23/Set-Docker-Window-Size/">Set Docker Window Size</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it &lt;docker_name&gt; /bin/bash -c <span class="string">"stty cols `tput cols` rows `tput lines` &amp;&amp; bash"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://stackoverflow.com/questions/38786615/docker-number-of-lines-in-terminal-changing-inside-docker/49281526#49281526" target="_blank" rel="noopener">Docker number of lines in terminal changing inside docker
-</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://rdzhou.github.io/2018/03/23/Set-Docker-Window-Size/" data-id="cjgbekpam00242j6czds3rzzm" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 </section>
         
@@ -477,7 +491,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mosh/">mosh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/">xargs</a></li></ul>
     </div>
   </div>
 
@@ -487,7 +501,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 12px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 10px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 16px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/MacOS/" style="font-size: 12px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 12px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 14px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 18px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 16px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 12px;">VMware</a> <a href="/tags/Windows/" style="font-size: 12px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mosh/" style="font-size: 10px;">mosh</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/tmux/" style="font-size: 10px;">tmux</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
     </div>
   </div>
 
@@ -496,7 +510,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
     </div>
   </div>
 
@@ -509,23 +523,23 @@
       <ul>
         
           <li>
+            <a href="/2018/07/02/Ubuntu-Software-Dependencies/">Ubuntu Software Dependencies</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/02/Assign-Static-IP-for-VMware-Fusion/">Assign Static IP for VMware Fusion</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/23/tmux-with-mosh/">tmux with mosh</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/22/Git-Rebase/">Git Rebase</a>
           </li>
         
           <li>
             <a href="/2018/04/14/Good-Terminal-Tools/">Good Terminal Tools</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/11/Count-Lines-of-Code/">Count Lines of Code</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/06/jQuerify/">jQuerify</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/02/Matlab-Octave-Notes/">Matlab/Octave Notes</a>
           </li>
         
       </ul>
