@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>XBlog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="XBlog">
+<meta property="og:url" content="http://rdzhou.github.io/page/4/index.html">
+<meta property="og:site_name" content="XBlog">
+<meta property="og:locale">
+<meta property="article:author" content="Rundong Zhou">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">XBlog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://rdzhou.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Sublime-Text-Useful-Code" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/19/Sublime-Text-Useful-Code/" class="article-date">
+  <time datetime="2017-09-19T20:27:56.000Z" itemprop="datePublished">2017-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/19/Sublime-Text-Useful-Code/">Sublime Text Useful Code</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list opened file in current window</span></span><br><span class="line">[x.file_name() <span class="keyword">for</span> x <span class="keyword">in</span> sublime.active_window().views()]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/09/19/Sublime-Text-Useful-Code/" data-id="cl5b57qyj00391e8nh628ahzy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/" rel="tag">SublimeText</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Shell-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/02/Shell-Notes/" class="article-date">
+  <time datetime="2017-08-02T23:42:45.000Z" itemprop="datePublished">2017-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/02/Shell-Notes/">Shell Notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Print absolute path of the script.</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">abs_path</span></span>() &#123;</span><br><span class="line">  python -c <span class="string">&quot;import os.path; print(os.path.realpath(&#x27;<span class="variable">$0</span>&#x27;))&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># get absolute path of the current script</span></span><br><span class="line">ABS_PATH=`abs_path`</span><br><span class="line"></span><br><span class="line"><span class="comment"># get path of directory</span></span><br><span class="line">$(<span class="built_in">dirname</span> <span class="variable">$ABS_PATH</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># get filename</span></span><br><span class="line">$(<span class="built_in">basename</span> <span class="variable">$ABS_PATH</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download the tar file specified by arg1, extract to arg2 (the </span></span><br><span class="line"><span class="comment"># top-level folder will be stripped) and remove the downloaded</span></span><br><span class="line"><span class="comment"># file.</span></span><br><span class="line"><span class="comment"># e.g. download_and_extract_to \</span></span><br><span class="line"><span class="comment"># http://releases.llvm.org/3.6.0/cfe-3.6.0.src.tar.xz \</span></span><br><span class="line"><span class="comment"># llvm/tools/clang</span></span><br><span class="line"><span class="comment"># @arg1 download_url</span></span><br><span class="line"><span class="comment"># @arg2 extract_to_folder</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">download_and_extract_to</span></span>() &#123;</span><br><span class="line">  URL=<span class="variable">$1</span></span><br><span class="line">  FOLDER=<span class="variable">$2</span></span><br><span class="line"></span><br><span class="line">  FILENAME=$(<span class="built_in">basename</span> <span class="variable">$URL</span>)</span><br><span class="line"></span><br><span class="line">  wget <span class="variable">$URL</span></span><br><span class="line">  <span class="built_in">mkdir</span> -p <span class="variable">$FOLDER</span></span><br><span class="line">  tar --strip 1 -xf <span class="variable">$FILENAME</span> -C <span class="variable">$FOLDER</span></span><br><span class="line">  <span class="built_in">rm</span> <span class="variable">$FILENAME</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># empty a file</span></span><br><span class="line">: &gt; file.txt</span><br><span class="line"><span class="built_in">truncate</span> -s0 file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># build file index for current directory</span></span><br><span class="line">find $(<span class="built_in">pwd</span>) -<span class="built_in">type</span> f &gt; filelist.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># copy a part of a file</span></span><br><span class="line"><span class="built_in">dd</span> count=&lt;copy_N_ibs_sized_blocks&gt; skip==&lt;copy_N_ibs_sized_blocks&gt; \</span><br><span class="line"> <span class="keyword">if</span>=&lt;input_file&gt; of=&lt;output_file&gt;</span><br><span class="line"><span class="comment"># add iflag=count_bytes,skip_bytes to copy and skip in bytes</span></span><br><span class="line"><span class="comment"># instead of blocks</span></span><br><span class="line"><span class="built_in">dd</span> iflag=count_bytes,skip_bytes count=&lt;copy_bytes&gt; skip=&lt;skip_bytes&gt; \</span><br><span class="line"> <span class="keyword">if</span>=&lt;input_file&gt; of=&lt;output_file&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># search for keyword in some specific types of files</span></span><br><span class="line">find . -<span class="built_in">type</span> f -name <span class="string">&quot;*.java&quot;</span> -print0 |xargs -0 grep -li <span class="string">&quot;keyword&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -n1 is used to execute the command once for each result</span></span><br><span class="line">find . -<span class="built_in">type</span> f -name <span class="string">&quot;*.java&quot;</span> -print0 |xargs -0 -n1 <span class="built_in">echo</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The -I option to xargs takes a string that will be </span></span><br><span class="line"><span class="comment"># replaced with the supplied input before the command </span></span><br><span class="line"><span class="comment"># is executed. A common choice is %.</span></span><br><span class="line">find /path -<span class="built_in">type</span> f -name <span class="string">&#x27;*~&#x27;</span> -print0 | xargs -0 -I % <span class="built_in">cp</span> -a % ~/backups</span><br><span class="line"></span><br><span class="line"><span class="comment"># The word bash at the end of the line is interpreted by bash</span></span><br><span class="line"><span class="comment"># -c as special parameter $0.</span></span><br><span class="line"><span class="comment"># The single quote &#x27; is critical, otherwise $filename will be</span></span><br><span class="line"><span class="comment"># replaced before the script is executed.</span></span><br><span class="line">find /path -<span class="built_in">type</span> f -name <span class="string">&#x27;*~&#x27;</span> -print0 | xargs -0 bash -c \</span><br><span class="line"><span class="string">&#x27;for filename; do cp -a &quot;$filename&quot; ~/backups; done&#x27;</span> bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/08/02/Shell-Notes/" data-id="cl5b57qyi00371e8n3mi19j4l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Outlook-Search-Criteria" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/02/Outlook-Search-Criteria/" class="article-date">
+  <time datetime="2017-08-02T21:26:59.000Z" itemprop="datePublished">2017-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/02/Outlook-Search-Criteria/">Outlook Search Criteria</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <table>
+<thead>
+<tr>
+<th>Type this</th>
+<th>To find this</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bobby moore</code></td>
+<td>Items containing both <code>bobby</code> and <code>moore</code>, but not necessarily in that order.</td>
+</tr>
+<tr>
+<td><code>&quot;bobby moore&quot;</code></td>
+<td>Items containing the exact phrase <code>bobby moore</code>. Note the use of double quotes so that the search results match the exact phrase within the quotes.</td>
+</tr>
+<tr>
+<td><code>hasattachment:yes</code></td>
+<td>Items that have attachments. You can also use <code>hasattachment:true</code> to get the same results.</td>
+</tr>
+<tr>
+<td><code>subject:&quot;bobby moore&quot;</code></td>
+<td>Items whose subject contains the phrase <code>bobby moore</code>.</td>
+</tr>
+<tr>
+<td><code>subject:bobby moore</code></td>
+<td>Items with <code>bobby</code> in the subject line and with <code>moore</code> anywhere else in the document.</td>
+</tr>
+<tr>
+<td><code>hasflag:true</code></td>
+<td>Items that are flagged for follow up.</td>
+</tr>
+<tr>
+<td><code>subject:status received:May</code></td>
+<td>Items received from anyone during the month of May (any year) where the subject contains status.</td>
+</tr>
+<tr>
+<td><code>bobby AND moore</code></td>
+<td>Items containing both bobby and moore, but not necessarily in that order. Note that logical operators such as AND, NOT, and OR must be in uppercase letters.</td>
+</tr>
+<tr>
+<td><code>bobby NOT moore</code></td>
+<td>Items containing bobby, but not moore.</td>
+</tr>
+<tr>
+<td><code>bobby OR moore</code></td>
+<td>Items containing bobby, moore, or both.</td>
+</tr>
+</tbody></table>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://support.office.com/en-us/article/Learn-to-narrow-your-search-criteria-for-better-searches-in-Outlook-d824d1e9-a255-4c8a-8553-276fb895a8da">Learn to narrow your search criteria for better searches in Outlook</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/08/02/Outlook-Search-Criteria/" data-id="cl5b57qyg002x1e8n4h0ag58f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Outlook/" rel="tag">Outlook</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-How-to-Remove-u200b" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/31/How-to-Remove-u200b/" class="article-date">
+  <time datetime="2017-07-31T17:59:28.000Z" itemprop="datePublished">2017-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/31/How-to-Remove-u200b/">How to Remove u200b</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a>Remove</h2><p>Search regular expression <code>\x&#123;200b&#125;</code>.<br><code>\u200b</code> cannot match it in SublimeText.</p>
+<h2 id="u200b-ZERO-WIDTH-SPACE"><a href="#u200b-ZERO-WIDTH-SPACE" class="headerlink" title="u200b (ZERO WIDTH SPACE)"></a>u200b (ZERO WIDTH SPACE)</h2><p>UTF-8 (hex) 0xE2 0x80 0x8B (e2808b)<br>UTF-16 (hex)    0x200B (200b)</p>
+<h2 id="SublimeText-Plugin"><a href="#SublimeText-Plugin" class="headerlink" title="SublimeText Plugin"></a>SublimeText Plugin</h2><p><code>Preferences -&gt; Browse Packages</code>. Put the following two files under <code>User</code>.</p>
+<h3 id="x-u200b-killer-py"><a href="#x-u200b-killer-py" class="headerlink" title="x_u200b_killer.py"></a>x_u200b_killer.py</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sublime, sublime_plugin</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ShowU200b</span>(sublime_plugin.EventListener):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">on_modified_async</span>(<span class="params">self, view</span>):</span><br><span class="line">        u200b_regions = view.find_all(<span class="string">&#x27;\u200b&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(u200b_regions) &gt; <span class="number">0</span>:</span><br><span class="line">            view.add_regions(<span class="string">&quot;u200b_regions&quot;</span>, u200b_regions, <span class="string">&quot;string&quot;</span>, <span class="string">&quot;circle&quot;</span>)</span><br><span class="line">            view.show_popup(<span class="string">&#x27;U200B Detected!!!&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            view.erase_regions(<span class="string">&quot;u200b_regions&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RemoveU200b</span>(sublime_plugin.TextCommand):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self, edit</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Removing U200B&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        regions = self.view.find_all(<span class="string">&#x27;\u200b&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">reversed</span>(regions):</span><br><span class="line">            self.view.erase(edit, r)</span><br></pre></td></tr></table></figure>
+
+<h3 id="x-u200b-killer-sublime-commands"><a href="#x-u200b-killer-sublime-commands" class="headerlink" title="x_u200b_killer.sublime-commands"></a>x_u200b_killer.sublime-commands</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span> <span class="attr">&quot;caption&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Remove U200b&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;remove_u200b&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="http://www.fileformat.info/info/unicode/char/200B/index.htm">Unicode Character ‘ZERO WIDTH SPACE’ (U+200B)</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/20356784/delete-u200b-zero-width-space-characters-using-sublime-text-3">delete U+200B zero-width space characters using sublime text 3</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/07/31/How-to-Remove-u200b/" data-id="cl5b57qyh00301e8n4agneo8w" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SublimeText/" rel="tag">SublimeText</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" class="article-date">
+  <time datetime="2017-07-31T05:35:17.000Z" itemprop="datePublished">2017-07-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/">Chinese Characters Diplayed in Ugly Strange Fonts in Windows</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Control Panel\Clock, Language, and Region\Language<br>-&gt;<br>Languange for non-Unicode programs<br>-&gt;<br>Change system locale<br>-&gt;<br>Select Chinese (Simplified)<br>-&gt;<br>Restart</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/07/30/Chinese-Characters-Diplayed-in-Ugly-Strange-Fonts-in-Windows/" data-id="cl5b57qxt000h1e8ndu7cdq4y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" class="article-date">
+  <time datetime="2017-06-13T22:11:05.000Z" itemprop="datePublished">2017-06-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/">How to Disable &#34;Allow access to your data&#34; dialog in Ubuntu</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>When the Android phone is connected to Ubuntu, the dialog “Allow access to your data” keeps poping up no matter you select “ALLOW” or “DENY”.</p>
+<p>This is because Ubuntu is trying to mount the Android phone. To disable the dialog, just disable the automount feature for Ubuntu.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.media-handling automount <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/06/13/How-to-Disable-allow-access-to-your-data-dialog-in-Ubuntu/" data-id="cl5b57qy0001d1e8ndv7k8yee" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Common-OpenSSL-Commands" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/31/Common-OpenSSL-Commands/" class="article-date">
+  <time datetime="2017-05-31T22:23:56.000Z" itemprop="datePublished">2017-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/31/Common-OpenSSL-Commands/">Common OpenSSL Commands</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Check-a-Certificate"><a href="#Check-a-Certificate" class="headerlink" title="Check a Certificate"></a>Check a Certificate</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># format_of_certificate can be der/pem</span></span><br><span class="line">openssl x509 -inform [format_of_certificate] -<span class="keyword">in</span> [certificate_path] -text</span><br></pre></td></tr></table></figure>
+
+<h3 id="Format-Conversion"><a href="#Format-Conversion" class="headerlink" title="Format Conversion"></a>Format Conversion</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -inform der -<span class="keyword">in</span> certificate.cer -out certificate.pem</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><p>See <a target="_blank" rel="noopener" href="https://www.sslshopper.com/article-most-common-openssl-commands.html">The Most Common OpenSSL Commands</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/05/31/Common-OpenSSL-Commands/" data-id="cl5b57qxu000m1e8ngsea4l9m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Android-Root-Note" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/18/Android-Root-Note/" class="article-date">
+  <time datetime="2017-05-18T21:33:08.000Z" itemprop="datePublished">2017-05-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/18/Android-Root-Note/">Android Root Note</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="How-Apps-Use-Root-Privilege"><a href="#How-Apps-Use-Root-Privilege" class="headerlink" title="How Apps Use Root Privilege"></a>How Apps Use Root Privilege</h3><p>Apps use the following code to gain root privilege. Basically, a new root shell process is created with <code>Runtime.getRuntime().exec(&quot;su&quot;)</code>. Then commands are sent to the new process through stdin.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">OutputStream</span> <span class="variable">stdin</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="type">DataOutputStream</span> <span class="variable">os</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="type">Process</span> <span class="variable">process</span> <span class="operator">=</span> Runtime.getRuntime().exec(<span class="string">&quot;su&quot;</span>);</span><br><span class="line"></span><br><span class="line">stdin = process.getOutputStream();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    os = <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(stdin);</span><br><span class="line">    os.writeBytes(<span class="string">&quot;ls /data\n&quot;</span>);</span><br><span class="line">    os.writeBytes(<span class="string">&quot;exit\n&quot;</span>);</span><br><span class="line">    os.flush();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    close(os);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="How-Root-is-Achieved"><a href="#How-Root-is-Achieved" class="headerlink" title="How Root is Achieved"></a>How Root is Achieved</h3><p>Since Apps use <strong>su</strong> to gain root privilege, we need a su binary with the following requirements:</p>
+<ul>
+<li>existing. su may not necessarily exist.</li>
+<li>chmod 4755. Apps should be able to execute su. The suid bit should have been set.</li>
+<li>selinux is off. root can turn off selinux with the cmd <code>setenforce 0</code>.</li>
+<li>Disable the uid check for the su from AOSP. The su source code in AOSP contains the following check. Apps cannot pass this check.<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (current_uid != AID_ROOT &amp;&amp; current_uid != AID_SHELL) error(<span class="number">1</span>, <span class="number">0</span>, <span class="string">&quot;not allowed&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>Even if the su meets the above requirements, it’s still possible that su doen’t work for Apps. For example, &#x2F;system maybe mounted as nosuid for Apps. To bypass SELinux and other limitations, some su solutions start a root sudaemon at boot up time. When Apps execute &#x2F;system&#x2F;xbin&#x2F;su, &#x2F;system&#x2F;xbin&#x2F;su accepts the commands and forwards them to the sudaemon.</p>
+<h3 id="How-to-Root-an-Emulator-x2F-Device-with-eng-Build-works-on-Nougat"><a href="#How-to-Root-an-Emulator-x2F-Device-with-eng-Build-works-on-Nougat" class="headerlink" title="How to Root an Emulator&#x2F;Device with eng Build (works on Nougat)"></a>How to Root an Emulator&#x2F;Device with eng Build (works on Nougat)</h3><ul>
+<li>Download <a target="_blank" rel="noopener" href="http://www.supersu.com/download">SuperSu ZIP format</a></li>
+<li>Start up the emulator with a writable system partition.<br><code>emulator -avd [emulator_name] -writable-system</code></li>
+<li>Unzip SuperSU. Get the SU related binaries for the correct architecture and put it in the right directory<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb remount</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su /system/xbin/su <span class="comment"># may need su.pie, adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su.pie /system/xbin/su</span></span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/supolicy /system/xbin</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/libsupol.so /system/lib</span><br><span class="line">adb shell <span class="built_in">chmod</span> 06755 /system/xbin/su</span><br></pre></td></tr></table></figure></li>
+<li>Start the su daemon<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell /system/xbin/su --init</span><br><span class="line">adb shell /system/xbin/su --daemon</span><br></pre></td></tr></table></figure></li>
+<li>Turn off SELinux<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell setenforce 0</span><br></pre></td></tr></table></figure></li>
+<li>Install SuperSu App<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb install &#123;supsersu_path&#125;/common/Superuser.apk</span><br></pre></td></tr></table></figure></li>
+<li>Open SuperSu App<ul>
+<li>If it complains about that the device is not rooted, you may have missed some previous steps. Check and do it again.</li>
+<li>If it complains about outdated su binary, you can ignore it. <strong>If you accept to update the su binary, it is possible that your device can NOT boot up.</strong> If you decline to update the su binary, you need to turn off selinux every time you reboot the device.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a target="_blank" rel="noopener" href="https://infosectrek.wordpress.com/2017/03/06/rooting-the-android-emulator/">Rooting the Android Emulator – on Android Studio 2.3 (Android 4.4+)</a><br><a target="_blank" rel="noopener" href="http://www.imooc.com/learn/126">Android系统Root原理初探</a><br><a target="_blank" rel="noopener" href="http://www.imooc.com/learn/153">Android高级Root技术原理解析</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cl5b57qxp00051e8n3xsb9o26" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Automatically-Turn-on-NumLock-for-Ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" class="article-date">
+  <time datetime="2017-05-08T07:23:40.000Z" itemprop="datePublished">2017-05-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/">Automatically Turn on NumLock for Ubuntu</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>First install numlockx</p>
+<p><code>$ sudo apt-get install numlockx</code></p>
+<p>Method 1<br><code>$ sudo vim /etc/rc.local</code><br>Add the following content before <code>exit 0</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [-x /usr/bin/numlockx ]; <span class="keyword">then</span></span><br><span class="line">numlockx on</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>Method 2<br><code>$ sudo vim /usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</code><br>Add <code>greeter-setup-script=/usr/bin/numlockx on </code> at the end.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" data-id="cl5b57qxr000d1e8ncnme91wv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ohmyzsh-Configuration" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/27/ohmyzsh-Configuration/" class="article-date">
+  <time datetime="2017-04-27T09:00:16.000Z" itemprop="datePublished">2017-04-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/27/ohmyzsh-Configuration/">OhMyZsh Configuration</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Install-zsh"><a href="#Install-zsh" class="headerlink" title="Install zsh"></a>Install zsh</h2><p><code>sudo apt-get install zsh</code></p>
+<h2 id="Install-ohmyzsh"><a href="#Install-ohmyzsh" class="headerlink" title="Install ohmyzsh"></a>Install ohmyzsh</h2><p><code>sh -c &quot;$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code></p>
+<h2 id="Install-autojump"><a href="#Install-autojump" class="headerlink" title="Install autojump"></a>Install autojump</h2><p><code>sudo apt-get install autojump</code></p>
+<h2 id="Enable-Plugins"><a href="#Enable-Plugins" class="headerlink" title="Enable Plugins"></a>Enable Plugins</h2><p>Modify .zshrc<br><code>plugins=(git ssh-agent autojump jump)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/04/27/ohmyzsh-Configuration/" data-id="cl5b57qyo00411e8n7lxa7cid" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ohmyzsh/" rel="tag">ohmyzsh</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/" rel="tag">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/" rel="tag">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/" rel="tag">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/" rel="tag">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/" rel="tag">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/" rel="tag">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/" rel="tag">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/" rel="tag">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/" rel="tag">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/" rel="tag">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/" rel="tag">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/" rel="tag">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/" rel="tag">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/" rel="tag">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/" rel="tag">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/" rel="tag">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mosh/" rel="tag">mosh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/" rel="tag">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/" rel="tag">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/" rel="tag">xargs</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MacOS/" style="font-size: 13.33px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 11.67px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 13.33px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 16.67px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 18.33px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 11.67px;">VMware</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Windows/" style="font-size: 18.33px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mosh/" style="font-size: 10px;">mosh</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/tmux/" style="font-size: 10px;">tmux</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/07/Great-App-Launchers-for-Linux-MacOS-Windows/">Great App Launchers for Linux/MacOS/Windows</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Disable-Show-More-Options-in-Context-Menu-of-Windows-11/">How to Disable Show More Options in Context Menu of Windows 11</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Quickly-Open-Specific-Control-Panel-Options/">How to Quickly Open Specific Control Panel Options</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/Add-Xiaohe-Shuangpin-for-Microsoft-Pinyin/">Add Xiaohe Shuangpin for Microsoft Pinyin</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/06/Change-Display-Settings-before-Login-in-Ubuntu-22-04/">Change Display Settings before Login in Ubuntu 22.04</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Rundong Zhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

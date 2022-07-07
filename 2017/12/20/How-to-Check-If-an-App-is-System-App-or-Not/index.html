@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>How to Check If an App is System App or Not | XBlog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="DefinitionThe definition of system app is not very clear. There are at least three different definitions:    Apps in system partition (&#x2F;system) These apps will get the flag ApplicationInfo.FLAG_SYSTEM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Check If an App is System App or Not">
+<meta property="og:url" content="http://rdzhou.github.io/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/index.html">
+<meta property="og:site_name" content="XBlog">
+<meta property="og:description" content="DefinitionThe definition of system app is not very clear. There are at least three different definitions:    Apps in system partition (&#x2F;system) These apps will get the flag ApplicationInfo.FLAG_SYSTEM">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-12-20T22:50:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T14:17:00.641Z">
+<meta property="article:author" content="Rundong Zhou">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">XBlog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://rdzhou.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-How-to-Check-If-an-App-is-System-App-or-Not" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/" class="article-date">
+  <time datetime="2017-12-20T22:50:00.000Z" itemprop="datePublished">2017-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      How to Check If an App is System App or Not
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>The definition of system app is not very clear. There are at least three different definitions:  </p>
+<ol>
+<li>Apps in system partition (<code>/system</code>)<ul>
+<li>These apps will get the flag <code>ApplicationInfo.FLAG_SYSTEM</code></li>
+<li>If an updated version is installed (probably not under <code>/system</code>), it will get <code>ApplicationInfo.FLAG_UPDATED_SYSTEM_APP</code></li>
+</ul>
+</li>
+<li>Apps signed with platform signature<ul>
+<li>These apps will be granted <code>signature</code> level permission</li>
+<li>The signature is checked in <a target="_blank" rel="noopener" href="http://androidxref.com/7.1.2_r36/xref/frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java#10286">PackageManagerService.java</a></li>
+</ul>
+</li>
+<li>Apps in <code>/system/priv-apps</code> and <code>/system/framework</code><ul>
+<li>These apps will get the flag <code>ApplicationInfo.PRIVATE_FLAG_PRIVILEGED</code></li>
+<li>The flag is set in <a target="_blank" rel="noopener" href="http://androidxref.com/7.1.2_r36/xref/frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java#2319">PackageManagerService.java</a></li>
+<li>These apps will be granted <code>signatureOrSystem</code> level permissions (corresponding to the <code>System</code> in <code>signatureOrSystem</code>)</li>
+<li>For Samsung, apps in <code>/system/carrier/priv-app</code> and <code>/odm/priv-app</code> will also get this flag</li>
+</ul>
+</li>
+</ol>
+<h2 id="Check"><a href="#Check" class="headerlink" title="Check"></a>Check</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.pm.ApplicationInfo;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageInfo;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager.NameNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> <span class="string">&quot;XKXXXX&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="type">PackageManager</span> <span class="variable">pm</span> <span class="operator">=</span> getApplicationContext().getPackageManager();</span><br><span class="line">        List&lt;PackageInfo&gt; list = pm.getInstalledPackages(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(PackageInfo pi : list) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">ApplicationInfo</span> <span class="variable">ai</span> <span class="operator">=</span> pm.getApplicationInfo(pi.packageName, <span class="number">0</span>);</span><br><span class="line">                <span class="type">String</span> <span class="variable">strSignedBySys</span> <span class="operator">=</span> isSignedBySystem(pm, pi.packageName)?<span class="string">&quot;SYS_SIGN&quot;</span>:<span class="string">&quot;NONSYS_SIGN&quot;</span>;</span><br><span class="line">                <span class="type">String</span> <span class="variable">strUnderSys</span> <span class="operator">=</span> isAppInSystemPartition(pm, pi.packageName)?<span class="string">&quot;UNDER_SYS&quot;</span>:<span class="string">&quot;NOT_UNDER_SYS&quot;</span>;</span><br><span class="line">                <span class="type">String</span> <span class="variable">strPrivileged</span> <span class="operator">=</span> isPrivilegedApp(ai)?<span class="string">&quot;PRIV&quot;</span>:<span class="string">&quot;NON_PRIV&quot;</span>;</span><br><span class="line">                Log.d(TAG, String.format(<span class="string">&quot;&gt;&gt;&gt;&gt;&gt;&gt; %s &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; %s %s %s %s&quot;</span>,</span><br><span class="line">                        pi.packageName,</span><br><span class="line">                        ai.publicSourceDir,</span><br><span class="line">                        strSignedBySys,</span><br><span class="line">                        strUnderSys,</span><br><span class="line">                        strPrivileged));</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                Log.d(TAG, <span class="string">&quot;exception &quot;</span>, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Check if an App is under /system or has been installed as an update to a built-in system application.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isAppInSystemPartition</span><span class="params">(PackageManager pm, String packageName)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">ApplicationInfo</span> <span class="variable">ai</span> <span class="operator">=</span> pm.getApplicationInfo(packageName, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">return</span> ((ai.flags &amp; (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != <span class="number">0</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (NameNotFoundException e) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">&quot;exception&quot;</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Check if an App is signed by system or not.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isSignedBySystem</span><span class="params">(PackageManager pm, String packageName)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">PackageInfo</span> <span class="variable">pi_app</span> <span class="operator">=</span> pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);</span><br><span class="line">            <span class="type">PackageInfo</span> <span class="variable">pi_sys</span> <span class="operator">=</span> pm.getPackageInfo(<span class="string">&quot;android&quot;</span>, PackageManager.GET_SIGNATURES);</span><br><span class="line">            <span class="keyword">return</span> (pi_app != <span class="literal">null</span></span><br><span class="line">                    &amp;&amp; pi_app.signatures != <span class="literal">null</span></span><br><span class="line">                    &amp;&amp; pi_sys.signatures[<span class="number">0</span>].equals(pi_app.signatures[<span class="number">0</span>]));</span><br><span class="line">        &#125;<span class="keyword">catch</span> (NameNotFoundException e) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">&quot;exception&quot;</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Check if an App has ApplicationInfo.PRIVATE_FLAG_PRIVILEGED (under /system/priv-app or /system/framework)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isPrivilegedApp</span><span class="params">(ApplicationInfo ai)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> ApplicationInfo.class.getDeclaredMethod(<span class="string">&quot;isPrivilegedApp&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> (Boolean)method.invoke(ai);</span><br><span class="line">        &#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">&quot;exception&quot;</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/content/pm/ApplicationInfo.java#476">Definition of PRIVATE_FLAG_PRIVILEGED in ApplicationInfo.java</a><br><a target="_blank" rel="noopener" href="https://pankajchunchun.wordpress.com/2014/07/08/how-to-check-if-application-is-system-app-or-not-by-signed-signature/">How to check if application is system app or not (By signed signature)</a><br><a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/manifest/permission-element.html">Android permission element</a>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/12/20/How-to-Check-If-an-App-is-System-App-or-Not/" data-id="cl5b57qy1001h1e8n1op0c00d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/27/Install-SGX/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Install SGX
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/20/How-to-Sign-Android-App-with-System-Signature/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">How to Sign Android App with Platform Signature</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/" rel="tag">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/" rel="tag">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/" rel="tag">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/" rel="tag">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/" rel="tag">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/" rel="tag">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/" rel="tag">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/" rel="tag">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/" rel="tag">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/" rel="tag">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/" rel="tag">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/" rel="tag">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/" rel="tag">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/" rel="tag">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/" rel="tag">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/" rel="tag">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mosh/" rel="tag">mosh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/" rel="tag">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/" rel="tag">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/" rel="tag">xargs</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MacOS/" style="font-size: 13.33px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 11.67px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 13.33px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 16.67px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 18.33px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 11.67px;">VMware</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Windows/" style="font-size: 18.33px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mosh/" style="font-size: 10px;">mosh</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/tmux/" style="font-size: 10px;">tmux</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/07/Great-App-Launchers-for-Linux-MacOS-Windows/">Great App Launchers for Linux/MacOS/Windows</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Disable-Show-More-Options-in-Context-Menu-of-Windows-11/">How to Disable Show More Options in Context Menu of Windows 11</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Quickly-Open-Specific-Control-Panel-Options/">How to Quickly Open Specific Control Panel Options</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/Add-Xiaohe-Shuangpin-for-Microsoft-Pinyin/">Add Xiaohe Shuangpin for Microsoft Pinyin</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/06/Change-Display-Settings-before-Login-in-Ubuntu-22-04/">Change Display Settings before Login in Ubuntu 22.04</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Rundong Zhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

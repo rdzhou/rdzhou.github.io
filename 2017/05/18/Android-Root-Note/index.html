@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android Root Note | XBlog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="How Apps Use Root PrivilegeApps use the following code to gain root privilege. Basically, a new root shell process is created with Runtime.getRuntime().exec(&quot;su&quot;). Then commands are sent to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Root Note">
+<meta property="og:url" content="http://rdzhou.github.io/2017/05/18/Android-Root-Note/index.html">
+<meta property="og:site_name" content="XBlog">
+<meta property="og:description" content="How Apps Use Root PrivilegeApps use the following code to gain root privilege. Basically, a new root shell process is created with Runtime.getRuntime().exec(&quot;su&quot;). Then commands are sent to">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-05-18T21:33:08.000Z">
+<meta property="article:modified_time" content="2022-07-07T14:17:00.641Z">
+<meta property="article:author" content="Rundong Zhou">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">XBlog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://rdzhou.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android-Root-Note" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/18/Android-Root-Note/" class="article-date">
+  <time datetime="2017-05-18T21:33:08.000Z" itemprop="datePublished">2017-05-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android Root Note
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="How-Apps-Use-Root-Privilege"><a href="#How-Apps-Use-Root-Privilege" class="headerlink" title="How Apps Use Root Privilege"></a>How Apps Use Root Privilege</h3><p>Apps use the following code to gain root privilege. Basically, a new root shell process is created with <code>Runtime.getRuntime().exec(&quot;su&quot;)</code>. Then commands are sent to the new process through stdin.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">OutputStream</span> <span class="variable">stdin</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="type">DataOutputStream</span> <span class="variable">os</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="type">Process</span> <span class="variable">process</span> <span class="operator">=</span> Runtime.getRuntime().exec(<span class="string">&quot;su&quot;</span>);</span><br><span class="line"></span><br><span class="line">stdin = process.getOutputStream();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    os = <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(stdin);</span><br><span class="line">    os.writeBytes(<span class="string">&quot;ls /data\n&quot;</span>);</span><br><span class="line">    os.writeBytes(<span class="string">&quot;exit\n&quot;</span>);</span><br><span class="line">    os.flush();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    close(os);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="How-Root-is-Achieved"><a href="#How-Root-is-Achieved" class="headerlink" title="How Root is Achieved"></a>How Root is Achieved</h3><p>Since Apps use <strong>su</strong> to gain root privilege, we need a su binary with the following requirements:</p>
+<ul>
+<li>existing. su may not necessarily exist.</li>
+<li>chmod 4755. Apps should be able to execute su. The suid bit should have been set.</li>
+<li>selinux is off. root can turn off selinux with the cmd <code>setenforce 0</code>.</li>
+<li>Disable the uid check for the su from AOSP. The su source code in AOSP contains the following check. Apps cannot pass this check.<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (current_uid != AID_ROOT &amp;&amp; current_uid != AID_SHELL) error(<span class="number">1</span>, <span class="number">0</span>, <span class="string">&quot;not allowed&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>Even if the su meets the above requirements, it’s still possible that su doen’t work for Apps. For example, &#x2F;system maybe mounted as nosuid for Apps. To bypass SELinux and other limitations, some su solutions start a root sudaemon at boot up time. When Apps execute &#x2F;system&#x2F;xbin&#x2F;su, &#x2F;system&#x2F;xbin&#x2F;su accepts the commands and forwards them to the sudaemon.</p>
+<h3 id="How-to-Root-an-Emulator-x2F-Device-with-eng-Build-works-on-Nougat"><a href="#How-to-Root-an-Emulator-x2F-Device-with-eng-Build-works-on-Nougat" class="headerlink" title="How to Root an Emulator&#x2F;Device with eng Build (works on Nougat)"></a>How to Root an Emulator&#x2F;Device with eng Build (works on Nougat)</h3><ul>
+<li>Download <a target="_blank" rel="noopener" href="http://www.supersu.com/download">SuperSu ZIP format</a></li>
+<li>Start up the emulator with a writable system partition.<br><code>emulator -avd [emulator_name] -writable-system</code></li>
+<li>Unzip SuperSU. Get the SU related binaries for the correct architecture and put it in the right directory<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb remount</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su /system/xbin/su <span class="comment"># may need su.pie, adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/su.pie /system/xbin/su</span></span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/supolicy /system/xbin</span><br><span class="line">adb push &#123;supsersu_path&#125;/&#123;architecture&#125;/libsupol.so /system/lib</span><br><span class="line">adb shell <span class="built_in">chmod</span> 06755 /system/xbin/su</span><br></pre></td></tr></table></figure></li>
+<li>Start the su daemon<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell /system/xbin/su --init</span><br><span class="line">adb shell /system/xbin/su --daemon</span><br></pre></td></tr></table></figure></li>
+<li>Turn off SELinux<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in adb root shell</span></span><br><span class="line">adb shell setenforce 0</span><br></pre></td></tr></table></figure></li>
+<li>Install SuperSu App<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb install &#123;supsersu_path&#125;/common/Superuser.apk</span><br></pre></td></tr></table></figure></li>
+<li>Open SuperSu App<ul>
+<li>If it complains about that the device is not rooted, you may have missed some previous steps. Check and do it again.</li>
+<li>If it complains about outdated su binary, you can ignore it. <strong>If you accept to update the su binary, it is possible that your device can NOT boot up.</strong> If you decline to update the su binary, you need to turn off selinux every time you reboot the device.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a target="_blank" rel="noopener" href="https://infosectrek.wordpress.com/2017/03/06/rooting-the-android-emulator/">Rooting the Android Emulator – on Android Studio 2.3 (Android 4.4+)</a><br><a target="_blank" rel="noopener" href="http://www.imooc.com/learn/126">Android系统Root原理初探</a><br><a target="_blank" rel="noopener" href="http://www.imooc.com/learn/153">Android高级Root技术原理解析</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/05/18/Android-Root-Note/" data-id="cl5b57qxp00051e8n3xsb9o26" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/31/Common-OpenSSL-Commands/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Common OpenSSL Commands
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/08/Automatically-Turn-on-NumLock-for-Ubuntu/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Automatically Turn on NumLock for Ubuntu</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/" rel="tag">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/" rel="tag">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/" rel="tag">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/" rel="tag">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/" rel="tag">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/" rel="tag">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/" rel="tag">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/" rel="tag">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/" rel="tag">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/" rel="tag">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/" rel="tag">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/" rel="tag">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/" rel="tag">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/" rel="tag">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/" rel="tag">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/" rel="tag">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mosh/" rel="tag">mosh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/" rel="tag">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/" rel="tag">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/" rel="tag">xargs</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MacOS/" style="font-size: 13.33px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 11.67px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 13.33px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 16.67px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 18.33px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 11.67px;">VMware</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Windows/" style="font-size: 18.33px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mosh/" style="font-size: 10px;">mosh</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/tmux/" style="font-size: 10px;">tmux</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/07/Great-App-Launchers-for-Linux-MacOS-Windows/">Great App Launchers for Linux/MacOS/Windows</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Disable-Show-More-Options-in-Context-Menu-of-Windows-11/">How to Disable Show More Options in Context Menu of Windows 11</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Quickly-Open-Specific-Control-Panel-Options/">How to Quickly Open Specific Control Panel Options</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/Add-Xiaohe-Shuangpin-for-Microsoft-Pinyin/">Add Xiaohe Shuangpin for Microsoft Pinyin</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/06/Change-Display-Settings-before-Login-in-Ubuntu-22-04/">Change Display Settings before Login in Ubuntu 22.04</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Rundong Zhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

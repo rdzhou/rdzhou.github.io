@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>XBlog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="XBlog">
+<meta property="og:url" content="http://rdzhou.github.io/page/6/index.html">
+<meta property="og:site_name" content="XBlog">
+<meta property="og:locale">
+<meta property="article:author" content="Rundong Zhou">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">XBlog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://rdzhou.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Domain-Names-are-Not-Protected-by-HTTPS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/" class="article-date">
+  <time datetime="2017-03-31T08:52:21.000Z" itemprop="datePublished">2017-03-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/">Domain Names are Not Protected by HTTPS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Domain names (e.g. drive.google.com) are not protected&#x2F;encrypted by HTTPS because of Server Name Indication (SNI).<br>SNI is an extension to the TLS protocol by which a client indicates which hostname it is attempting to connect to at the start of the handshaking process. This allows a server to present multiple certificates on the same IP address and TCP port number and hence allows multiple secure (HTTPS) websites (or any other Service over TLS) to be served off the same IP address without requiring all those sites to use the same certificate. The desired hostname is not encrypted, so an eavesdropper can see which site is being requested.</p>
+<p>Reference:<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Server_Name_Indication">Server Name Indication</a><br><a target="_blank" rel="noopener" href="http://www.moserware.com/2009/06/first-few-milliseconds-of-https.html">The First Few Milliseconds of an HTTPS Connection</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/" data-id="cl5b57qxw000w1e8nhk1qa5ib" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-How-to-Get-Rid-of-the-Black-Screen-Issue-with-NoMachine-Virtual-Desktop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/30/How-to-Get-Rid-of-the-Black-Screen-Issue-with-NoMachine-Virtual-Desktop/" class="article-date">
+  <time datetime="2017-03-30T20:52:50.000Z" itemprop="datePublished">2017-03-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/30/How-to-Get-Rid-of-the-Black-Screen-Issue-with-NoMachine-Virtual-Desktop/">How to Get Rid of the Black Screen Issue with NoMachine Virtual Desktop</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>When proprietary drivers for AMD and NVIDIA video cards are installed on the server host, users get a black screen when running virtual desktops. This doesn’t occur when using Open Source drivers like Radeon or nouveau. </p>
+<p>In order to set LD_LIBRARY_PATH for NoMachine sessions,  specify path to the Mesa 3D graphics library in the node configuration, the &#x2F;usr&#x2F;NX&#x2F;etc&#x2F;node.cfg file.</p>
+<p>To do that:</p>
+<ol>
+<li><p>Edit the &#x2F;usr&#x2F;NX&#x2F;etc&#x2F;node.cfg file.</p>
+</li>
+<li><p>Uncomment the DesktopCommandLibraryPath key.</p>
+</li>
+<li><p>Set the proper path to Mesa library in the DesktopCommandLibraryPath key.</p>
+</li>
+</ol>
+<p>For example on Ubuntu 14.04 64 bit:</p>
+<p>DesktopCommandLibraryPath “&#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;mesa”</p>
+<p>and on Ubuntu 14.04 32 bit:</p>
+<p>DesktopCommandLibraryPath “&#x2F;usr&#x2F;lib&#x2F;i386-linux-gnu&#x2F;mesa&#x2F;“</p>
+<p>Path to be set in the DesktopCommandLibraryPath key must point to the directory containing the libGL.so* libraries.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><p><a target="_blank" rel="noopener" href="https://www.nomachine.com/AR09L00814">https://www.nomachine.com/AR09L00814</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/30/How-to-Get-Rid-of-the-Black-Screen-Issue-with-NoMachine-Virtual-Desktop/" data-id="cl5b57qy0001f1e8nbyyh6p1j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Android-Keystore-System-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/29/Android-Keystore-System-Notes/" class="article-date">
+  <time datetime="2017-03-30T01:52:34.000Z" itemprop="datePublished">2017-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/29/Android-Keystore-System-Notes/">Android Keystore System Notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Similar to KDEWallet</p>
+<h2 id="Security-Features"><a href="#Security-Features" class="headerlink" title="Security Features"></a>Security Features</h2><ul>
+<li>Once keys are in the keystore, they can be used for cryptographic operations with the key material remaining <strong>non-exportable</strong>. (extraction prevention)</li>
+<li>Moreover, it offers facilities to restrict <strong>when and how</strong> keys can be used, such as requiring user authentication for key use or restricting keys to be used only in certain cryptographic modes. (Key Use Authorizations)</li>
+</ul>
+<h3 id="Extraction-Prevention"><a href="#Extraction-Prevention" class="headerlink" title="Extraction Prevention"></a>Extraction Prevention</h3><p>The Keystore system is used by the KeyChain API as well as the Android Keystore provider feature.<br>Key material never enters the application process.<br>Key material may be bound to the secure hardware.</p>
+<h3 id="Key-Use-Authorizations"><a href="#Key-Use-Authorizations" class="headerlink" title="Key Use Authorizations"></a>Key Use Authorizations</h3><p>Android Keystore lets apps specify authorized uses of their keys when generating or importing the keys. Once a key is generated or imported, its authorizations can not be changed.</p>
+<p>Supported key use authorizations:  </p>
+<ul>
+<li>cryptography: authorized key algorithm, operations or purposes (encrypt, decrypt, sign, verify), padding schemes, block modes, digests with which the key can be used;</li>
+<li>temporal validity interval: interval of time during which the key is authorized for use;</li>
+<li>user authentication: the key can only be used if the user has been authenticated recently enough.</li>
+</ul>
+<h2 id="Keychain-vs-Keystore-Provider"><a href="#Keychain-vs-Keystore-Provider" class="headerlink" title="Keychain vs Keystore Provider"></a>Keychain vs Keystore Provider</h2><p>KeyChain: system-wide credentials, need users to choose which credential an app can access, allows several apps to use the same set of credentials with user consent.<br>Keystore provider: let an individual app store its own credentials that only the app itself can access, requires no user interaction to select the credentials.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://developer.android.com/training/articles/keystore.html">Android Keystore System</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/29/Android-Keystore-System-Notes/" data-id="cl5b57qxo00031e8nf139cpv1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Manage-Hexo-Blog-with-Git" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/29/Manage-Hexo-Blog-with-Git/" class="article-date">
+  <time datetime="2017-03-29T08:54:43.000Z" itemprop="datePublished">2017-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/29/Manage-Hexo-Blog-with-Git/">Manage Hexo Blog with Git</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Just init the git repo and add *.<br>Hexo has already written the .gitignore to exlude the files you should not commit.<br>If there are .git inside theme, you shoud delete the .git folder or ignore it.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add *</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/29/Manage-Hexo-Blog-with-Git/" data-id="cl5b57qye002o1e8ngx7n1r80" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Regex-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/29/Regex-Notes/" class="article-date">
+  <time datetime="2017-03-29T08:40:01.000Z" itemprop="datePublished">2017-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/29/Regex-Notes/">Regex Notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h2><p><code>(?s)</code> For “single line mode” makes the dot match all characters, including line breaks. Not supported by Ruby or JavaScript.<br><code>*?</code> Ungreedy<br><code>(?&lt;=(regex))</code> Positive Lookbehind<br><code>(?&lt;!(regex))</code> Negative Lookbehind<br><code>(?=(regex))</code>  Positive Lookahead<br><code>(?!(regex))</code>  Negative Lookahead</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><p><a target="_blank" rel="noopener" href="http://www.regular-expressions.info/tutorial.html">Regular-Expressions.info Tutorial</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/29/Regex-Notes/" data-id="cl5b57qyh00321e8n7sga8inc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Markdown-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/21/Markdown-Notes/" class="article-date">
+  <time datetime="2017-03-21T07:31:16.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/21/Markdown-Notes/">Markdown Notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Content"><a href="#Content" class="headerlink" title="Content:"></a>Content:</h2><p>Setext-style headers for h1 and h2 are created by “underlining” with equal signs (&#x3D;) and hyphens (-)<br>e.g.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A First Level Header</span><br><span class="line">====================</span><br><span class="line">A Second Level Header</span><br><span class="line">---------------------</span><br></pre></td></tr></table></figure>
+
+<p>Unordered List *&#x2F;+&#x2F;-</p>
+<p>Inline Code</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`&lt;code&gt;`</span><br></pre></td></tr></table></figure>
+
+<p>Code Block: indent every line of the block by 4 spaces or 1 tab</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;blockquote&gt;</span><br><span class="line">    &lt;p&gt;For example.&lt;/p&gt;</span><br><span class="line">&lt;/blockquote&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Code Block:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```&lt;language&gt;</span><br><span class="line">code content</span><br></pre></td></tr></table></figure>
+<pre><code>
+## Reference:
+[Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+[MARKDOWN SYNTAX &amp; GITHUB FLAVORED MARKDOWN](https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf)
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/21/Markdown-Notes/" data-id="cl5b57qyf002q1e8nbivld9bw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Trusty-OS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/21/Trusty-OS/" class="article-date">
+  <time datetime="2017-03-21T07:19:41.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/21/Trusty-OS/">Trusty OS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Trusted-applications-and-services"><a href="#Trusted-applications-and-services" class="headerlink" title="Trusted applications and services"></a>Trusted applications and services</h2><p>Trusted applications run as isolated <strong>single-threaded processes</strong> under the Trusty OS kernel. Each process runs in its own virtual memory sandbox utilizing the MMU capabilities of the TEE processor. The kernel schedules these processes using a priority-based, round-robin scheduler driven by a secure timer tick. In the current version of Trusty, all Trusty applications share the same priority.</p>
+<p>Trusted applications are written as <strong>event-driven servers</strong> waiting for commands from other applications or from applications running on the main processor. Trusted applications can also be clients of other trusted server applications. </p>
+<h2 id="Ports-and-channels"><a href="#Ports-and-channels" class="headerlink" title="Ports and channels"></a>Ports and channels</h2><p>Ports are used by Trusty applications to expose service end-points in the form of a named path to which clients connect. e.g. “com.google.servicename”.<br>Channels: symmetric, bi-directional connection instances of a port</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/21/Trusty-OS/" data-id="cl5b57qyk003f1e8n48bu4hf3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/21/hello-world/" class="article-date">
+  <time datetime="2017-03-21T07:00:00.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/21/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/03/21/hello-world/" data-id="cl5b57qyn003w1e8n9cneh4xm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-My-First-Post-with-hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/25/My-First-Post-with-hexo/" class="article-date">
+  <time datetime="2016-09-26T03:03:25.000Z" itemprop="datePublished">2016-09-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/25/My-First-Post-with-hexo/">My First Post with hexo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This my first post using <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! </p>
+<h2 id="First-title"><a href="#First-title" class="headerlink" title="First title"></a>First title</h2><h3 id="a-first-subtitile"><a href="#a-first-subtitile" class="headerlink" title="a first subtitile"></a>a first subtitile</h3><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="Second-title"><a href="#Second-title" class="headerlink" title="Second title"></a>Second title</h2><p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2016/09/25/My-First-Post-with-hexo/" data-id="cl5b57qyg002w1e8ngywtgeop" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/" rel="tag">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/" rel="tag">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/" rel="tag">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/" rel="tag">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/" rel="tag">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/" rel="tag">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/" rel="tag">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/" rel="tag">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/" rel="tag">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/" rel="tag">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/" rel="tag">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/" rel="tag">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/" rel="tag">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/" rel="tag">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/" rel="tag">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/" rel="tag">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mosh/" rel="tag">mosh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/" rel="tag">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/" rel="tag">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/" rel="tag">xargs</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MacOS/" style="font-size: 13.33px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 11.67px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 13.33px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 16.67px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 18.33px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 11.67px;">VMware</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Windows/" style="font-size: 18.33px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mosh/" style="font-size: 10px;">mosh</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/tmux/" style="font-size: 10px;">tmux</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/07/Great-App-Launchers-for-Linux-MacOS-Windows/">Great App Launchers for Linux/MacOS/Windows</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Disable-Show-More-Options-in-Context-Menu-of-Windows-11/">How to Disable Show More Options in Context Menu of Windows 11</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Quickly-Open-Specific-Control-Panel-Options/">How to Quickly Open Specific Control Panel Options</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/Add-Xiaohe-Shuangpin-for-Microsoft-Pinyin/">Add Xiaohe Shuangpin for Microsoft Pinyin</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/06/Change-Display-Settings-before-Login-in-Ubuntu-22-04/">Change Display Settings before Login in Ubuntu 22.04</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Rundong Zhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

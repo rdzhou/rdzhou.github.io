@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android KeyStore Notes | XBlog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Create PrivateKey&#x2F;PublicCertificate Pair12345678910111213141516171819202122232425public void createNewKeys(View view) &amp;#123;    String alias &#x3D; aliasText.getText().toString();    try &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android KeyStore Notes">
+<meta property="og:url" content="http://rdzhou.github.io/2017/04/04/Android-KeyStore-Notes/index.html">
+<meta property="og:site_name" content="XBlog">
+<meta property="og:description" content="Create PrivateKey&#x2F;PublicCertificate Pair12345678910111213141516171819202122232425public void createNewKeys(View view) &amp;#123;    String alias &#x3D; aliasText.getText().toString();    try &amp;#123;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-04-05T02:09:40.000Z">
+<meta property="article:modified_time" content="2022-07-07T14:17:00.641Z">
+<meta property="article:author" content="Rundong Zhou">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="KeyStore">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="XBlog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">XBlog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://rdzhou.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android-KeyStore-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/04/Android-KeyStore-Notes/" class="article-date">
+  <time datetime="2017-04-05T02:09:40.000Z" itemprop="datePublished">2017-04-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android KeyStore Notes
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Create-PrivateKey-x2F-PublicCertificate-Pair"><a href="#Create-PrivateKey-x2F-PublicCertificate-Pair" class="headerlink" title="Create PrivateKey&#x2F;PublicCertificate Pair"></a>Create PrivateKey&#x2F;PublicCertificate Pair</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">createNewKeys</span><span class="params">(View view)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">alias</span> <span class="operator">=</span> aliasText.getText().toString();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// Create new key if needed</span></span><br><span class="line">        <span class="keyword">if</span> (!keyStore.containsAlias(alias)) &#123;</span><br><span class="line">            <span class="type">Calendar</span> <span class="variable">start</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">            <span class="type">Calendar</span> <span class="variable">end</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">            end.add(Calendar.YEAR, <span class="number">1</span>);</span><br><span class="line">            <span class="type">KeyPairGeneratorSpec</span> <span class="variable">spec</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KeyPairGeneratorSpec</span>.Builder(<span class="built_in">this</span>)</span><br><span class="line">                    .setAlias(alias)</span><br><span class="line">                    .setSubject(<span class="keyword">new</span> <span class="title class_">X500Principal</span>(<span class="string">&quot;CN=Sample Name, O=Android Authority&quot;</span>))</span><br><span class="line">                    .setSerialNumber(BigInteger.ONE)</span><br><span class="line">                    .setStartDate(start.getTime())</span><br><span class="line">                    .setEndDate(end.getTime())</span><br><span class="line">                    .build();</span><br><span class="line">            <span class="type">KeyPairGenerator</span> <span class="variable">generator</span> <span class="operator">=</span> KeyPairGenerator.getInstance(<span class="string">&quot;RSA&quot;</span>, <span class="string">&quot;AndroidKeyStore&quot;</span>);</span><br><span class="line">            generator.initialize(spec);</span><br><span class="line">            <span class="type">KeyPair</span> <span class="variable">keyPair</span> <span class="operator">=</span> generator.generateKeyPair();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="built_in">this</span>, <span class="string">&quot;Exception &quot;</span> + e.getMessage() + <span class="string">&quot; occured&quot;</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">    refreshKeys();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Import-PrivateKey-x2F-PublicCertificate-Pair"><a href="#Import-PrivateKey-x2F-PublicCertificate-Pair" class="headerlink" title="Import PrivateKey&#x2F;PublicCertificate Pair"></a>Import PrivateKey&#x2F;PublicCertificate Pair</h3><p>The private key <strong>cannot be encrypted.</strong><br>The password parameter of setKeyEntry <strong>has to be null.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The key/certificate are the content between BEGIN and END in pem format</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">private</span> <span class="type">String</span> <span class="variable">PRIVATE_KEY</span> <span class="operator">=</span> <span class="string">&quot;MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCadLCqO4yNjdpZz26sTPXLx6JcgtNibHHldL//xRwZyYqX6udIbOH6Poau/niWEGeupBjN5qnCeDWTjNDBHGm+H+Se62V7PVH93O8bPRRoDzg4xZWrPhbDIZ6DlSvPh9/JakegNl4Nx7L9GVFbXYmFyqv6gziFjEbIGRBz9vW2QdbjxnmhnkiMobzI0Pxx/GMt1QZ92ezlsXUerECejVFStfr8SDlfZvKljIoVOJfZBBdTPh9zEi455dka+bPRv6w1v2SppNppC1jCargNcZ1dLr9ERKEh6hYdNP+qnRTeFZTAxIxiocRy0jvpvNs7bVP1PogOnK0ggl0khU9bontdAgMBAAECggEAUcVFYlp0ZtyapMF0zjNQTbo68s8wKgNPqTLOExK/dceFYDg0idtbJ6jClRKTtJ6qxYKKvzdG2HXbp2n9er8YHFe2KYxmBYDJT6UP0VPc4dps4WF5g1czpcq+qNrofs5oY7GoieE+mf0HfYdR0xUKIZLSyaV+3vUM5BKg60Prgbk3BcC79wDt/WlNT23vZrLop3KuW611v8DSMA73nHclWSh9kVcEcgctc3idprFfAjlF1pWybIHSgkOBd8XIJ94SBsMKqGKF5MRv2doRttUHz2kCw+MvdLRXm7ry/CzAqEwYL/KUMUrnzVN5JNllyB/Z/nZSIu8C0vsmPMWfCRIb4QKBgQDIChs4vKORSU8f2QXphTufD0EdtJJsM37AjJxhBM4EKQBreE0Ci0LBXlbdrodTE5JsjvNyL8S5jNOt79xwLq8/cpaBRXPoRkCNKckPQMlFWF4bFUjRAXSTuc0daF/4zqH8AJu4nLiBDm+ytrQlHDi/f6lLUO/2DgfT/rbx7gEg3wKBgQDFqhhSmr8P0NDK6c6+AoRTxhJcfcFxIi7Llad1CBPuxsvDn3Q8XpeI+QNfygrFPxi2g6GOnJQ8guGe9IUX2zY/RqJqEM6Pgc7zv0etCvC4jd6dW/ox0Td/ymOVltOIofsAQQ3SRNNqSgjin3KlOpyCw38J6NCevQXFeU0CPcA/QwKBgHGYS50MglYeqzAKrbDOV+0bXH7h68RF+dSeBK+Tauox3mspBZJMQrxMNkfstCwZES1UgCp3td8oeYxsiWGrIRmGmLEQH6HnQwDmmaZvw9v9MnNuwsrtaKX6/N+WRemkbZgNQGC1npCrAgMafXIVdKRKeniqnZm8nfVkz77SyRFBAoGBALr/H+OF4hrkQaK1bpDzcJyQVe6KSebtn7eZ7MIa0kCicUKwJxa1pkY+zaJhUa8o8gg4ny57kwFsEGaAjSj0iW1zNVOCcufwtgiCfRyHrRProx7bVOasNwT+QxfRiG1KUFr9MEYsNpXnVGCQ17TYrhhHOnf1eOezizI2f1QPd0BhAoGBAIDTegY9P1e1fzPALn9puHElapUXlXwZfiT9J1C6GkYywYwrXDkYXKXb+mvNIbL8YxKZ0ONecVxcmd693yh33VSGIngOvmGNhRmkY8EpTc2MsZXtu3Yej1Nn/q3y7X0+XWJ5YI3A1dCILjdfXAIlwb6wDIyxich8sgBEiEJotI1Y&quot;</span>;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">private</span> <span class="type">String</span> <span class="variable">UNSIGNED_CERT</span> <span class="operator">=</span> <span class="string">&quot;MIID7TCCAtWgAwIBAgIJAKvJ99aAhppSMA0GCSqGSIb3DQEBCwUAMIGMMQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExFjAUBgNVBAcMDU1vdW50YWluIFZpZXcxETAPBgNVBAoMCFNlbGZ0ZXN0MRQwEgYDVQQLDAtTZWN0aW9uU2VsZjERMA8GA1UEAwwIdGVzdC5uZXQxHDAaBgkqhkiG9w0BCQEWDXRlc3RAdGVzdC5uZXQwHhcNMTcwNDA0MDE1NTEyWhcNMTcwNTA0MDE1NTEyWjCBjDELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAkNBMRYwFAYDVQQHDA1Nb3VudGFpbiBWaWV3MREwDwYDVQQKDAhTZWxmdGVzdDEUMBIGA1UECwwLU2VjdGlvblNlbGYxETAPBgNVBAMMCHRlc3QubmV0MRwwGgYJKoZIhvcNAQkBFg10ZXN0QHRlc3QubmV0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmnSwqjuMjY3aWc9urEz1y8eiXILTYmxx5XS//8UcGcmKl+rnSGzh+j6Grv54lhBnrqQYzeapwng1k4zQwRxpvh/knutlez1R/dzvGz0UaA84OMWVqz4WwyGeg5Urz4ffyWpHoDZeDcey/RlRW12Jhcqr+oM4hYxGyBkQc/b1tkHW48Z5oZ5IjKG8yND8cfxjLdUGfdns5bF1HqxAno1RUrX6/Eg5X2bypYyKFTiX2QQXUz4fcxIuOeXZGvmz0b+sNb9kqaTaaQtYwmq4DXGdXS6/REShIeoWHTT/qp0U3hWUwMSMYqHEctI76bzbO21T9T6IDpytIIJdJIVPW6J7XQIDAQABo1AwTjAdBgNVHQ4EFgQUgQkNHWSC8zCUG5VvNK6+V0saxDYwHwYDVR0jBBgwFoAUgQkNHWSC8zCUG5VvNK6+V0saxDYwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAEHLEHBjmGbmE3CFtfStEHcvG1LIG8B96gBHKBY28XbdGQoxlZWlIfdsCjB80XP7S0Ku701N/Keh0kjDcEHp/TbOERwy4Icq/RdDnEj6Lbbc1I/c5w4mRu4KZPOpmdfeOPFBb2iFCpXw8iHUPCTnyQhkkL+kSy2bKxnrwj+MeRBudRhjdSWi3ZUKvxmC2LW4pMua9Y9MWANpl6/h9wLGRcicAmwZoUnHvLno9ccNc5DVq1Cbb73rpG1aMXoRdrcJqHmXMKC9g1cAKSuPfHgLASKKfVoLszv661r2yOI4MmiZKQhUHkbvt54F80P/t8AXpUTLDQ5btiQiUSF+IeoUQPg==&quot;</span>;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">private</span> <span class="type">String</span> <span class="variable">SIGNED_CERT</span> <span class="operator">=</span> <span class="string">&quot;MIID+zCCAuOgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwgY8xCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEWMBQGA1UEBwwNTW91bnRhaW4gVmlldzEUMBIGA1UECgwLU2Ftc3VuZ1Rlc3QxFDASBgNVBAsMC1NlY3Rpb25UZXN0MREwDwYDVQQDDAh0ZXN0Lm9yZzEcMBoGCSqGSIb3DQEJARYNdGVzdEB0ZXN0Lm9yZzAeFw0xNzA0MDQwMjAwNDRaFw0xODA0MDQwMjAwNDRaMHQxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTEPMA0GA1UECgwGU2VsZkNBMRYwFAYDVQQLDA1TZWN0aW9uU2VsZkNBMREwDwYDVQQDDAh0ZXN0Lm5ldDEcMBoGCSqGSIb3DQEJARYNdGVzdEB0ZXN0Lm5ldDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJp0sKo7jI2N2lnPbqxM9cvHolyC02JsceV0v//FHBnJipfq50hs4fo+hq7+eJYQZ66kGM3mqcJ4NZOM0MEcab4f5J7rZXs9Uf3c7xs9FGgPODjFlas+FsMhnoOVK8+H38lqR6A2Xg3Hsv0ZUVtdiYXKq/qDOIWMRsgZEHP29bZB1uPGeaGeSIyhvMjQ/HH8Yy3VBn3Z7OWxdR6sQJ6NUVK1+vxIOV9m8qWMihU4l9kEF1M+H3MSLjnl2Rr5s9G/rDW/ZKmk2mkLWMJquA1xnV0uv0REoSHqFh00/6qdFN4VlMDEjGKhxHLSO+m82zttU/U+iA6crSCCXSSFT1uie10CAwEAAaN7MHkwCQYDVR0TBAIwADAsBglghkgBhvhCAQ0EHxYdT3BlblNTTCBHZW5lcmF0ZWQgQ2VydGlmaWNhdGUwHQYDVR0OBBYEFIEJDR1kgvMwlBuVbzSuvldLGsQ2MB8GA1UdIwQYMBaAFODmZfUgqfPNVJEhF0ekF9Qh6La2MA0GCSqGSIb3DQEBCwUAA4IBAQBGnlZqIhC9l3wWYlO8AJ4toLbQnymkoknzOfMLCRCCHLtp0y23twb/Qp5D0D1bHb7VOKByqeiLCu3CFb8/nHAElqbcoFkmEvFv5QdxKefzRDCgj8KyR+teyJjekXHuaqZSPL1nETlvP+mRkEP4QGb1mvdmjZs3cMcIFJxD6MygEhIeJeUu2VyPAriVvt5Wk/4PEdJ6/ft5zSZyiCCI6nPyrPjixonDqnCmapbiYYqhGCRgaF02f3nQ61/T9KiZO8+nrh0tIKpjKz3A+qQgnF0kSjSW1MGZnHw2zxzk3AjSPCvXUvoCJKBj5Wgd1TFHzJaegaBDW9OSmJPiZgMZgyNO&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">installPrivateKeyPair</span><span class="params">(View view)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="type">PrivateKey</span> <span class="variable">privateKey</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        Certificate[]chain = &#123;<span class="literal">null</span>&#125;;</span><br><span class="line">        <span class="type">KeyFactory</span> <span class="variable">keyFactory</span> <span class="operator">=</span> KeyFactory.getInstance(<span class="string">&quot;RSA&quot;</span>);</span><br><span class="line">        privateKey = keyFactory.generatePrivate(<span class="keyword">new</span> <span class="title class_">PKCS8EncodedKeySpec</span>(Base64.decode(PRIVATE_KEY, Base64.DEFAULT)));</span><br><span class="line"></span><br><span class="line">        <span class="type">CertificateFactory</span> <span class="variable">certFactory</span> <span class="operator">=</span> CertificateFactory.getInstance(<span class="string">&quot;X.509&quot;</span>);</span><br><span class="line">        chain[<span class="number">0</span>] = certFactory.generateCertificate(<span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(Base64.decode(UNSIGNED_CERT, Base64.DEFAULT)));</span><br><span class="line">        keyStore.setKeyEntry(<span class="string">&quot;testAlias&quot;</span>, privateKey, <span class="literal">null</span>, chain);</span><br><span class="line">        refreshKeys();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="built_in">this</span>, <span class="string">&quot;Exception &quot;</span> + e.getMessage() + <span class="string">&quot; occured&quot;</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// overwrite the unsigned certificate with the signed one, the private key remains the same</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">installSignedCert</span><span class="params">(View view)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="type">PrivateKey</span> <span class="variable">privateKey</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        Certificate[]chain = &#123;<span class="literal">null</span>&#125;;</span><br><span class="line">        privateKey = (PrivateKey) keyStore.getKey(<span class="string">&quot;testAlias&quot;</span>, <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">CertificateFactory</span> <span class="variable">certFactory</span> <span class="operator">=</span> CertificateFactory.getInstance(<span class="string">&quot;X.509&quot;</span>);</span><br><span class="line">        chain[<span class="number">0</span>] = certFactory.generateCertificate(<span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(Base64.decode(SIGNED_CERT, Base64.DEFAULT)));</span><br><span class="line"></span><br><span class="line">        keyStore.setKeyEntry(<span class="string">&quot;testAlias&quot;</span>, privateKey, <span class="literal">null</span>, chain);</span><br><span class="line">        refreshKeys();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="built_in">this</span>, <span class="string">&quot;Exception &quot;</span> + e.getMessage() + <span class="string">&quot; occured&quot;</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Encrypt"><a href="#Encrypt" class="headerlink" title="Encrypt"></a>Encrypt</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">encryptString</span><span class="params">(String alias)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        KeyStore.<span class="type">PrivateKeyEntry</span> <span class="variable">privateKeyEntry</span> <span class="operator">=</span> (KeyStore.PrivateKeyEntry)keyStore.getEntry(alias, <span class="literal">null</span>);</span><br><span class="line">        <span class="type">RSAPublicKey</span> <span class="variable">publicKey</span> <span class="operator">=</span> (RSAPublicKey) privateKeyEntry.getCertificate().getPublicKey();</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">initialText</span> <span class="operator">=</span> startText.getText().toString();</span><br><span class="line">        <span class="keyword">if</span>(initialText.isEmpty()) &#123;</span><br><span class="line">            Toast.makeText(<span class="built_in">this</span>, <span class="string">&quot;Enter text in the &#x27;Initial Text&#x27; widget&quot;</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">Cipher</span> <span class="variable">inCipher</span> <span class="operator">=</span> Cipher.getInstance(<span class="string">&quot;RSA/ECB/PKCS1Padding&quot;</span>);</span><br><span class="line">        inCipher.init(Cipher.ENCRYPT_MODE, publicKey);</span><br><span class="line"></span><br><span class="line">        <span class="type">ByteArrayOutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">        <span class="type">CipherOutputStream</span> <span class="variable">cipherOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CipherOutputStream</span>(</span><br><span class="line">                outputStream, inCipher);</span><br><span class="line">        cipherOutputStream.write(initialText.getBytes(<span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line">        cipherOutputStream.close();</span><br><span class="line"></span><br><span class="line">        <span class="type">byte</span> [] vals = outputStream.toByteArray();</span><br><span class="line">        encryptedText.setText(Base64.encodeToString(vals, Base64.DEFAULT));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="built_in">this</span>, <span class="string">&quot;Exception &quot;</span> + e.getMessage() + <span class="string">&quot; occured&quot;</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Decrypt"><a href="#Decrypt" class="headerlink" title="Decrypt"></a>Decrypt</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decryptString</span><span class="params">(String alias)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        KeyStore.<span class="type">PrivateKeyEntry</span> <span class="variable">privateKeyEntry</span> <span class="operator">=</span> (KeyStore.PrivateKeyEntry)keyStore.getEntry(alias, <span class="literal">null</span>);</span><br><span class="line">        <span class="type">PrivateKey</span> <span class="variable">privateKey</span> <span class="operator">=</span>  privateKeyEntry.getPrivateKey();</span><br><span class="line"></span><br><span class="line">        <span class="type">Cipher</span> <span class="variable">output</span> <span class="operator">=</span> Cipher.getInstance(<span class="string">&quot;RSA/ECB/PKCS1Padding&quot;</span>);</span><br><span class="line">        output.init(Cipher.DECRYPT_MODE, privateKey);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">cipherText</span> <span class="operator">=</span> encryptedText.getText().toString();</span><br><span class="line">        <span class="type">CipherInputStream</span> <span class="variable">cipherInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CipherInputStream</span>(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(Base64.decode(cipherText, Base64.DEFAULT)), output);</span><br><span class="line">        ArrayList&lt;Byte&gt; values = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> nextByte;</span><br><span class="line">        <span class="keyword">while</span> ((nextByte = cipherInputStream.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">            values.add((<span class="type">byte</span>)nextByte);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[values.size()];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; bytes.length; i++) &#123;</span><br><span class="line">            bytes[i] = values.get(i).byteValue();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">finalText</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, bytes.length, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        decryptedText.setText(finalText);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(<span class="built_in">this</span>, <span class="string">&quot;Exception &quot;</span> + e.getMessage() + <span class="string">&quot; occured&quot;</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">        Log.e(TAG, Log.getStackTraceString(e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://github.com/obaro/SimpleKeystoreApp">Simple Android app showing how to use the Android Keystore to create, retrieve and delete Public&#x2F;Private keypairs</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://rdzhou.github.io/2017/04/04/Android-KeyStore-Notes/" data-id="cl5b57qxq00091e8n0kvd53u1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KeyStore/" rel="tag">KeyStore</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/06/Using-Android-KeyChain/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Using Android KeyChain
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/31/Domain-Names-are-Not-Protected-by-HTTPS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Domain Names are Not Protected by HTTPS</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/" rel="tag">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cryptography/" rel="tag">Cryptography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cygwin/" rel="tag">Cygwin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCC/" rel="tag">GCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/" rel="tag">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KeyStore/" rel="tag">KeyStore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MacOS/" rel="tag">MacOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matlab/" rel="tag">Matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Octave/" rel="tag">Octave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Outlook/" rel="tag">Outlook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/" rel="tag">Reflection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGX/" rel="tag">SGX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SublimeText/" rel="tag">SublimeText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TODO/" rel="tag">TODO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshoot/" rel="tag">Troubleshoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VMware/" rel="tag">VMware</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clang/" rel="tag">clang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fcitx/" rel="tag">fcitx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mosh/" rel="tag">mosh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ohmyzsh/" rel="tag">ohmyzsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tmux/" rel="tag">tmux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xargs/" rel="tag">xargs</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Cryptography/" style="font-size: 10px;">Cryptography</a> <a href="/tags/Cygwin/" style="font-size: 10px;">Cygwin</a> <a href="/tags/GCC/" style="font-size: 10px;">GCC</a> <a href="/tags/HTTPS/" style="font-size: 10px;">HTTPS</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/KeyStore/" style="font-size: 10px;">KeyStore</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MacOS/" style="font-size: 13.33px;">MacOS</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Matlab/" style="font-size: 10px;">Matlab</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Octave/" style="font-size: 10px;">Octave</a> <a href="/tags/OpenSSL/" style="font-size: 10px;">OpenSSL</a> <a href="/tags/Outlook/" style="font-size: 10px;">Outlook</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/SGX/" style="font-size: 10px;">SGX</a> <a href="/tags/Shell/" style="font-size: 11.67px;">Shell</a> <a href="/tags/SublimeText/" style="font-size: 13.33px;">SublimeText</a> <a href="/tags/TODO/" style="font-size: 10px;">TODO</a> <a href="/tags/Troubleshoot/" style="font-size: 16.67px;">Troubleshoot</a> <a href="/tags/Ubuntu/" style="font-size: 18.33px;">Ubuntu</a> <a href="/tags/VMware/" style="font-size: 11.67px;">VMware</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Windows/" style="font-size: 18.33px;">Windows</a> <a href="/tags/clang/" style="font-size: 10px;">clang</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fcitx/" style="font-size: 10px;">fcitx</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/mosh/" style="font-size: 10px;">mosh</a> <a href="/tags/ohmyzsh/" style="font-size: 10px;">ohmyzsh</a> <a href="/tags/tmux/" style="font-size: 10px;">tmux</a> <a href="/tags/xargs/" style="font-size: 10px;">xargs</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/07/Great-App-Launchers-for-Linux-MacOS-Windows/">Great App Launchers for Linux/MacOS/Windows</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Disable-Show-More-Options-in-Context-Menu-of-Windows-11/">How to Disable Show More Options in Context Menu of Windows 11</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/How-to-Quickly-Open-Specific-Control-Panel-Options/">How to Quickly Open Specific Control Panel Options</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/Add-Xiaohe-Shuangpin-for-Microsoft-Pinyin/">Add Xiaohe Shuangpin for Microsoft Pinyin</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/06/Change-Display-Settings-before-Login-in-Ubuntu-22-04/">Change Display Settings before Login in Ubuntu 22.04</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Rundong Zhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>
